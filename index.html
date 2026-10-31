@@ -1,0 +1,448 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>TENNISMOUNT_ · 你的专属球场摄影师 · 众筹预热中</title>
+<meta name="description" content="TennisMount：一个会转的冰球。iPhone 看，支架动。FOC 无刷云台 + Vision 人体识别，打球时自动把你留在画面正中间。固件、App、CAD 全部开源。">
+<meta property="og:title" content="TENNISMOUNT_ · 你的专属球场摄影师">
+<meta property="og:description" content="FOC 无刷云台 + iPhone 视觉跟拍，边拍边给手机充电。全开源，众筹预热中。">
+<meta property="og:image" content="assets/preview_exploded.png">
+<meta name="theme-color" content="#05070a">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23d4ff3a'/%3E%3Cpath d='M10 20c14 6 14 18 0 24M54 20c-14 6-14 18 0 24' stroke='%2305070a' stroke-width='4' fill='none'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="style.css">
+<script type="importmap">
+{ "imports": {
+  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+} }
+</script>
+</head>
+<body>
+
+<!-- ============ BOOT ============ -->
+<div id="boot" aria-hidden="true">
+  <pre id="bootlog"></pre>
+</div>
+
+<div class="noise" aria-hidden="true"></div>
+<div class="gridbg" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a class="logo" href="#top">TENNISMOUNT<span class="cursor">_</span></a>
+  <nav class="links">
+    <a href="#demo">// 跟拍演示</a>
+    <a href="#inside">// 拆解</a>
+    <a href="#specs">// 参数</a>
+    <a href="#open">// 开源</a>
+    <a href="#rewards">// 档位</a>
+    <a href="#faq">// FAQ</a>
+  </nav>
+  <a class="btn btn-solid btn-sm magnetic" href="#rewards">锁定早鸟 →</a>
+</header>
+
+<main id="top">
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero-copy">
+    <p class="tag reveal">[ CROWDFUNDING · 预热中 · <span id="launchTag">2026.12.01 20:00 上线</span> ]</p>
+    <h1 class="reveal">
+      <span class="glitch" data-text="你的专属">你的专属</span><br>
+      <span class="hl">球场摄影师</span>
+    </h1>
+    <p class="lead reveal">一个会转的冰球。<b>iPhone 看，支架动。</b><br>
+      FOC 无刷云台 × Vision 人体识别，你在底线怎么跑，画面都把你留在正中间——还顺手给手机充电。</p>
+
+    <div class="countdown reveal" id="countdown" aria-label="众筹上线倒计时">
+      <div><b data-k="d">00</b><span>DAYS</span></div>
+      <div><b data-k="h">00</b><span>HRS</span></div>
+      <div><b data-k="m">00</b><span>MIN</span></div>
+      <div><b data-k="s">00</b><span>SEC</span></div>
+    </div>
+
+    <div class="cta reveal">
+      <a class="btn btn-solid magnetic" href="#subscribe">订阅上线提醒</a>
+      <a class="btn btn-ghost magnetic" href="#demo">▶ 看它怎么跟拍</a>
+    </div>
+
+    <ul class="hero-stats reveal">
+      <li><b>120</b><span>°/s 最高转速</span></li>
+      <li><b>±150</b><span>° 水平行程</span></li>
+      <li><b>2.5</b><span>h 边拍边充</span></li>
+      <li><b>100%</b><span>开源</span></li>
+    </ul>
+  </div>
+
+  <div class="hero-3d">
+    <canvas id="heroCanvas" aria-label="TennisMount 实时 3D 模型"></canvas>
+    <div class="hud">
+      <span class="c tl"></span><span class="c tr"></span><span class="c bl"></span><span class="c br"></span>
+      <div class="hud-top">
+        <span class="rec"><i></i>LIVE · CAD v1</span>
+        <span id="hudMode">MODE: TRACK</span>
+      </div>
+      <div class="hud-read">
+        <div><span>PAN</span><b id="hudAng">+00.00°</b></div>
+        <div><span>VEL</span><b id="hudVel">+000°/s</b></div>
+        <div><span>BLE</span><b id="hudLat">18 ms</b></div>
+        <div><span>BATT</span><b id="hudBat">82%</b></div>
+      </div>
+      <div class="hud-ctl">
+        <button class="chip on" data-act="track">AUTO-TRACK</button>
+        <button class="chip" data-act="xray">X-RAY</button>
+        <button class="chip" data-act="phone">IPHONE</button>
+      </div>
+      <p class="hud-hint">拖拽旋转 · 滚轮缩放</p>
+    </div>
+    <div class="loading" id="heroLoading">LOADING MESH<span class="dots"></span></div>
+  </div>
+</section>
+
+<div class="ticker" aria-hidden="true">
+  <div class="ticker-track">
+    <span>FOC @ 1 kHz</span><span>14-BIT ABSOLUTE ENCODER</span><span>BLE 5 · 15 ms</span><span>APPLE VISION · 30 Hz</span>
+    <span>α-β FILTER + LATENCY PREDICTION</span><span>25 kHz SILENT PWM</span><span>21700 · 18.5 Wh</span><span>USB-C 5V/3A → iPhone</span>
+    <span>OPEN FIRMWARE</span><span>OPEN APP</span><span>OPEN CAD</span>
+    <span>FOC @ 1 kHz</span><span>14-BIT ABSOLUTE ENCODER</span><span>BLE 5 · 15 ms</span><span>APPLE VISION · 30 Hz</span>
+    <span>α-β FILTER + LATENCY PREDICTION</span><span>25 kHz SILENT PWM</span><span>21700 · 18.5 Wh</span><span>USB-C 5V/3A → iPhone</span>
+    <span>OPEN FIRMWARE</span><span>OPEN APP</span><span>OPEN CAD</span>
+  </div>
+</div>
+
+<!-- ============ PROBLEM ============ -->
+<section class="section problem">
+  <div class="sec-head reveal">
+    <p class="kicker">00 / WHY</p>
+    <h2>想复盘自己的正手？<br>你需要一个<span class="hl">不累、不走神、不收钱</span>的摄影师。</h2>
+  </div>
+  <div class="cards3">
+    <article class="card reveal">
+      <p class="mono dim">ERR_01</p>
+      <h3>固定机位 = 一半时间不在画面里</h3>
+      <p>iPhone 主摄在 4 米外只拍得下 5.5 米宽，单打场地 8.23 米。跑一次大角度，你就出画了。</p>
+    </article>
+    <article class="card reveal">
+      <p class="mono dim">ERR_02</p>
+      <h3>普通跟拍云台：一顿一顿，跟丢就乱转</h3>
+      <p>舵机抖、步进响、算法不认人。对面球员和路人一出现，镜头就被抢走。</p>
+    </article>
+    <article class="card reveal">
+      <p class="mono dim">ERR_03</p>
+      <h3>拍一小时，手机先没电、再过热</h3>
+      <p>摄像头 + 实时识别每小时吃掉 25–40% 电量。夏天还会被系统强制降画质。</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ DEMO ============ -->
+<section class="section" id="demo">
+  <div class="sec-head reveal">
+    <p class="kicker">01 / LIVE DEMO</p>
+    <h2>这不是视频，是<span class="hl">真算法</span>在你浏览器里跑。</h2>
+    <p class="sub">和 App 里同一套逻辑：Vision 检测 30 Hz → α-β 滤波 → 延迟预测 τ=100 ms → 死区滞回 → 梯形速度规划（120°/s, 600°/s²）。右侧是按真实 BLE 协议编码的数据包。</p>
+  </div>
+
+  <div class="demo reveal">
+    <div class="demo-main">
+      <canvas id="courtCanvas" aria-label="俯视球场跟拍仿真"></canvas>
+      <div class="viewfinder">
+        <div class="vf-label mono">iPhone 取景 · 1x · HFOV 69°</div>
+        <div class="vf-frame" id="vfFrame">
+          <div class="vf-band"></div>
+          <div class="vf-player" id="vfPlayer"></div>
+        </div>
+      </div>
+      <div class="demo-ctl">
+        <div class="seg" role="group" aria-label="算法模式">
+          <button class="on" data-mode="smart">TennisMount 算法</button>
+          <button data-mode="naive">普通跟拍（无滤波/死区/预测）</button>
+        </div>
+        <button class="chip" id="demoSprint">⚡ 来一次冲刺</button>
+      </div>
+    </div>
+    <aside class="demo-side">
+      <div class="meters">
+        <div class="meter"><span>居中率（中间 30%）</span><b id="mCenter">--%</b></div>
+        <div class="meter"><span>平均偏差</span><b id="mErr">--°</b></div>
+        <div class="meter"><span>支架转速</span><b id="mVel">--°/s</b></div>
+        <div class="meter"><span>每秒抖动换向</span><b id="mJerk">--</b></div>
+      </div>
+      <div class="term">
+        <div class="term-bar"><i></i><i></i><i></i><span>ble://TennisMount-7E4B</span></div>
+        <pre id="termLog"></pre>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ============ PIPELINE ============ -->
+<section class="section">
+  <div class="sec-head reveal">
+    <p class="kicker">02 / HOW</p>
+    <h2>分工极简：<span class="hl">手机负责看和想，支架负责动。</span></h2>
+  </div>
+  <ol class="pipe">
+    <li class="reveal"><b>01</b><h3>看见你</h3><p>AVFoundation 4K/1080p60 录像，同一帧缩小后交给 Apple Vision，每秒 30 次检测人体。</p><code>VNDetectHumanRectanglesRequest</code></li>
+    <li class="reveal"><b>02</b><h3>认准你</h3><p>开拍前点一下自己。之后按 IoU + 距离 + 体型打分，自动忽略远端对手和路过的人。</p><code>score = .6·IoU + .3·dist + .1·h</code></li>
+    <li class="reveal"><b>03</b><h3>算准方向</h3><p>用"拍这一帧时"的支架角度换算世界方位角，α-β 滤波后按实测延迟提前预测。</p><code>θ = θ_mount(t_frame) + atan(...)</code></li>
+    <li class="reveal"><b>04</b><h3>丝滑地转</h3><p>BLE 把目标角发给 ESP32-S3，FOC 1 kHz 闭环 + 梯形规划，转得像有人在掌镜。</p><code>motor.loopFOC(); motor.move(θ)</code></li>
+  </ol>
+</section>
+
+<!-- ============ INSIDE ============ -->
+<section class="section" id="inside">
+  <div class="sec-head reveal">
+    <p class="kicker">03 / TEARDOWN</p>
+    <h2>84 mm 里塞进一台<span class="hl">云台 + 充电宝</span>。</h2>
+    <p class="sub">下面是真实的参数化 CAD 装配体（build123d 生成，19 个实体）。拖动滑块拆开它。</p>
+  </div>
+  <div class="inside reveal">
+    <div class="inside-3d">
+      <canvas id="explodeCanvas" aria-label="TennisMount 爆炸视图"></canvas>
+      <div class="explode-ctl">
+        <label for="explode" class="mono">EXPLODE</label>
+        <input type="range" id="explode" min="0" max="100" value="0">
+        <output id="explodeVal" class="mono">0%</output>
+      </div>
+    </div>
+    <ul class="parts" id="partsList">
+      <li data-part="top_cap"><b>上盖</b><span>跟随电机转动 · 盘簧走线腔</span></li>
+      <li data-part="REF_motor_GBM2804H"><b>GBM2804H 无刷云台电机</b><span>中空轴 · 7 对极 · 25 kHz 静音</span></li>
+      <li data-part="REF_bearing_61808"><b>61808 薄壁轴承</b><span>承受手机的倾覆力矩，电机只管转</span></li>
+      <li data-part="REF_MT6701"><b>MT6701 磁编码器</b><span>14 位绝对角度，开机不用回零</span></li>
+      <li data-part="REF_XIAO_ESP32S3"><b>XIAO ESP32-S3</b><span>BLE 5 + 双核：一核跑 FOC，一核跑通信</span></li>
+      <li data-part="REF_SimpleFOC_Mini"><b>SimpleFOC Mini</b><span>DRV8313 三相驱动</span></li>
+      <li data-part="REF_battery_21700"><b>21700 · 5000 mAh</b><span>18.5 Wh，底部压低重心</span></li>
+      <li data-part="REF_IP5328P"><b>IP5328P 电源管理</b><span>USB-C 充电 + 5 V/3 A 给 iPhone</span></li>
+      <li data-part="REF_LED_strip"><b>弧形状态灯带</b><span>连接 / 跟拍 / 电量一眼可见</span></li>
+      <li data-part="phone_plate"><b>MagSafe 磁吸托</b><span>阻尼铰链 −15° ~ +30° 俯仰</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ SPECS ============ -->
+<section class="section" id="specs">
+  <div class="sec-head reveal">
+    <p class="kicker">04 / SPEC SHEET</p>
+    <h2><span class="hl">$ cat</span> specs.txt</h2>
+  </div>
+  <div class="specs reveal">
+    <dl>
+      <div><dt>尺寸</dt><dd>Ø84 × 53 mm（机身）</dd></div>
+      <div><dt>重量</dt><dd>约 300 g（不含手机）</dd></div>
+      <div><dt>水平行程</dt><dd>软件 ±150° / 机械限位 ±155°</dd></div>
+      <div><dt>俯仰</dt><dd>手动阻尼 −15° ~ +30°</dd></div>
+      <div><dt>最高转速 / 加速度</dt><dd>120 °/s · 600 °/s²（可调）</dd></div>
+      <div><dt>定位精度</dt><dd>&lt; 0.2°（14 位绝对编码器闭环）</dd></div>
+      <div><dt>控制</dt><dd>FOC 1 kHz · 梯形速度规划 · 堵转保护</dd></div>
+      <div><dt>通信</dt><dd>BLE 5 · 连接间隔 15 ms · 1 s 心跳保护</dd></div>
+    </dl>
+    <dl>
+      <div><dt>电池</dt><dd>21700 5000 mAh · 18.5 Wh</dd></div>
+      <div><dt>续航</dt><dd>边拍边给 iPhone 充电 ≈ 2.5 h；仅电机 &gt; 15 h</dd></div>
+      <div><dt>充电</dt><dd>USB-C 输入 · 手机侧 USB-C 5 V/3 A 输出</dd></div>
+      <div><dt>手机</dt><dd>iPhone · iOS 17+ · MagSafe 磁吸（附引磁片）</dd></div>
+      <div><dt>拍摄</dt><dd>1080p60 / 4K30 · HEVC · 直接存相册</dd></div>
+      <div><dt>识别</dt><dd>Apple Vision 人体检测 · 点选锁定 · 跟丢自动找回</dd></div>
+      <div><dt>安装</dt><dd>1/4"-20 标准螺孔 · 三脚架 / 围网夹</dd></div>
+      <div><dt>开源协议</dt><dd>固件 / App / CAD 全部公开</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ============ OPEN SOURCE ============ -->
+<section class="section" id="open">
+  <div class="sec-head reveal">
+    <p class="kicker">05 / OPEN SOURCE</p>
+    <h2>不藏一行代码。<span class="hl">Fork 它、改它、超越它。</span></h2>
+    <p class="sub">众筹支持者拿到的不只是一台设备，还有完整的固件、iOS App 和参数化 CAD——57 + 64 个单元测试全绿。</p>
+  </div>
+  <div class="code reveal">
+    <div class="tabs" role="tablist">
+      <button class="on" data-tab="fw">firmware/main.cpp</button>
+      <button data-tab="ios">TrackingController.swift</button>
+      <button data-tab="cad">tennismount.py</button>
+      <button data-tab="ble">PROTOCOL.md</button>
+    </div>
+<pre class="pane on" data-pane="fw"><code><span class="k">// core 1 · 1 kHz 实时控制环</span>
+<span class="t">void</span> <span class="f">controlTask</span>(<span class="t">void</span>*) {
+  <span class="k">for</span> (;;) {
+    <span class="t">float</span> target = planner.<span class="f">step</span>(cmd.targetDeg, <span class="n">0.001f</span>); <span class="k">// 限速·限加速度·限位</span>
+    motor.<span class="f">loopFOC</span>();
+    motor.<span class="f">move</span>(<span class="f">radians</span>(target));
+    safety.<span class="f">check</span>(motor, cmd.lastRxMs);           <span class="k">// 堵转 / 过温 / 心跳</span>
+    <span class="f">vTaskDelayUntil</span>(&amp;t, <span class="f">pdMS_TO_TICKS</span>(<span class="n">1</span>));
+  }
+}</code></pre>
+<pre class="pane" data-pane="ios"><code><span class="k">func</span> <span class="f">onDetection</span>(box: <span class="t">Box</span>, frameTime: <span class="t">TimeInterval</span>) {
+    <span class="k">let</span> e = <span class="f">atan</span>((box.midX - <span class="n">0.5</span>) * <span class="n">2</span> * <span class="f">tan</span>(hfov / <span class="n">2</span>))
+    <span class="k">let</span> mountAtFrame = history.<span class="f">angle</span>(at: frameTime)   <span class="k">// 用拍这一帧时的角度</span>
+    filter.<span class="f">update</span>(mountAtFrame + e, at: frameTime)
+    <span class="k">var</span> cmd = filter.angle + filter.velocity * latency.tau
+    cmd = framing.<span class="f">apply</span>(cmd, current: link.angle)  <span class="k">// 死区·滞回·引导留白</span>
+    link.<span class="f">sendTrack</span>(target: cmd, maxSpeed: <span class="n">120</span>)
+}</code></pre>
+<pre class="pane" data-pane="cad"><code><span class="k"># 全参数化：量完卡尺改一行，重新生成 STL</span>
+BASE_OD        = <span class="n">84.0</span>    <span class="k"># mm</span>
+BEARING        = (<span class="n">40.0</span>, <span class="n">52.0</span>, <span class="n">7.0</span>)  <span class="k"># 61808</span>
+MOTOR_BOLT_PCD = <span class="n">19.0</span>    <span class="k"># VERIFY with calipers</span>
+PAN_STOP_DEG   = <span class="n">155</span>
+CELL           = (<span class="n">21.7</span>, <span class="n">70.5</span>) <span class="k"># 21700 flat-top</span>
+
+<span class="k">with</span> <span class="t">BuildPart</span>() <span class="k">as</span> base_shell:
+    <span class="t">Cylinder</span>(BASE_OD / <span class="n">2</span>, BASE_H)
+    <span class="f">offset</span>(amount=-WALL, openings=base_shell.faces().<span class="f">sort_by</span>(Axis.Z)[-<span class="n">1</span>])</code></pre>
+<pre class="pane" data-pane="ble"><code><span class="k">## CTRL · App → Mount · 8 bytes · ≤30 Hz · little-endian</span>
+| off | type | field          |
+|  0  | u8   | mode           |  <span class="k">0 IDLE · 1 TRACK · 2 MANUAL · 3 HOME</span>
+|  1  | u8   | seq            |
+|  2  | i16  | value          |  <span class="k">target angle, 0.01°</span>
+|  4  | u16  | max_speed_dps  |
+|  6  | u16  | reserved       |
+
+<span class="k">## STATE · Mount → App · 14 bytes · notify 50 Hz</span>
+t_ms:u32  angle:i16  vel:i16  batt:u8  flags:u8  temp:i8  last_seq:u8  state:u8  fault:u8</code></pre>
+  </div>
+  <div class="repo reveal">
+    <div><b>firmware/</b><span>PlatformIO · SimpleFOC · NimBLE · 57 tests ✓</span></div>
+    <div><b>ios/</b><span>SwiftUI · Vision · CoreBluetooth · 64 tests ✓</span></div>
+    <div><b>hardware/</b><span>build123d CAD · STEP/STL · 原理图 · BOM</span></div>
+  </div>
+</section>
+
+<!-- ============ REWARDS ============ -->
+<section class="section" id="rewards">
+  <div class="sec-head reveal">
+    <p class="kicker">06 / BACK IT</p>
+    <h2>选你的<span class="hl">装备等级</span>。</h2>
+    <p class="sub">众筹目标 ¥300,000。上线后 48 小时内为早鸟档，限量售完即止。以下为预热价，上线时以众筹平台为准。</p>
+  </div>
+
+  <div class="goal reveal">
+    <div class="goal-row"><span class="mono">FUNDING GOAL</span><b>¥300,000</b></div>
+    <div class="bar"><i style="--p:0%"></i></div>
+    <div class="goal-row dim mono"><span>STATUS: PRE-LAUNCH</span><span>订阅即可锁定早鸟资格</span></div>
+  </div>
+
+  <div class="tiers">
+    <article class="tier reveal">
+      <p class="mono dim">LV.1 · HACKER</p>
+      <h3>极客 DIY 套件</h3>
+      <p class="price"><b>¥399</b><s>¥499</s></p>
+      <ul>
+        <li>全套电子件 + 电机 + 轴承 + 电池</li>
+        <li>STL 文件自己打印外壳</li>
+        <li>焊接/装配教程 + 调参指南</li>
+        <li>Discord 极客频道</li>
+      </ul>
+      <p class="limit mono">限量 300 套</p>
+      <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="DIY">预约 →</a>
+    </article>
+    <article class="tier hot reveal">
+      <span class="badge">MOST WANTED</span>
+      <p class="mono dim">LV.2 · SUPER EARLY BIRD</p>
+      <h3>超级早鸟</h3>
+      <p class="price"><b>¥599</b><s>¥899</s></p>
+      <ul>
+        <li>TennisMount 整机 ×1</li>
+        <li>MagSafe 引磁片 + USB-C 短线</li>
+        <li>围网夹 + 迷你三脚架</li>
+        <li>编号激光铭牌（#001–#500）</li>
+      </ul>
+      <p class="limit mono">限量 500 台</p>
+      <a class="btn btn-solid magnetic" href="#subscribe" data-tier="SUPER_EARLY">锁定资格 →</a>
+    </article>
+    <article class="tier reveal">
+      <p class="mono dim">LV.3 · EARLY BIRD</p>
+      <h3>早鸟</h3>
+      <p class="price"><b>¥699</b><s>¥899</s></p>
+      <ul>
+        <li>TennisMount 整机 ×1</li>
+        <li>MagSafe 引磁片 + USB-C 短线</li>
+        <li>围网夹 + 迷你三脚架</li>
+      </ul>
+      <p class="limit mono">限量 1500 台</p>
+      <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="EARLY">预约 →</a>
+    </article>
+    <article class="tier reveal">
+      <p class="mono dim">LV.4 · DOUBLES</p>
+      <h3>双打套装</h3>
+      <p class="price"><b>¥1,199</b><s>¥1,798</s></p>
+      <ul>
+        <li>TennisMount 整机 ×2</li>
+        <li>两个机位同时拍（正面 + 侧面）</li>
+        <li>全部配件 ×2</li>
+        <li>App 多机位功能优先体验</li>
+      </ul>
+      <p class="limit mono">限量 300 套</p>
+      <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="DOUBLES">预约 →</a>
+    </article>
+  </div>
+</section>
+
+<!-- ============ ROADMAP ============ -->
+<section class="section">
+  <div class="sec-head reveal">
+    <p class="kicker">07 / ROADMAP</p>
+    <h2><span class="hl">git log</span> --future</h2>
+  </div>
+  <ol class="road">
+    <li class="done reveal"><time>2026 Q4</time><h3>设计冻结 · v1</h3><p>结构 CAD、电路、固件、iOS App 全部完成，单元测试 121/121 通过。</p><span class="mono">✓ DONE</span></li>
+    <li class="now reveal"><time>2026 Q4</time><h3>原型实测</h3><p>桌面调参 → 球场实测 → 外壳 v2。众筹上线。</p><span class="mono">● IN PROGRESS</span></li>
+    <li class="reveal"><time>2027 Q1</time><h3>EVT 工程样机</h3><p>一体化圆形 PCB，注塑外壳开模，100 台支持者内测。</p></li>
+    <li class="reveal"><time>2027 Q2</time><h3>DVT + 认证</h3><p>3C / 电池 UN38.3 / 蓝牙 SRRC，可靠性测试（高温、跌落、10 万次往复）。</p></li>
+    <li class="reveal"><time>2027 Q3</time><h3>量产发货</h3><p>DIY 套件优先发出，整机按档位顺序发货。</p></li>
+  </ol>
+</section>
+
+<!-- ============ FAQ ============ -->
+<section class="section" id="faq">
+  <div class="sec-head reveal">
+    <p class="kicker">08 / FAQ</p>
+    <h2>你可能想问的。</h2>
+  </div>
+  <div class="faq reveal">
+    <details><summary>支持安卓吗？</summary><p>首发只支持 iPhone（iOS 17+）：Apple Vision 的人体检测效果和发热控制都更稳。支架端协议完全公开，安卓 App 在路线图里，也欢迎社区先做。</p></details>
+    <details><summary>手机和支架之间为什么用蓝牙，不用那根 USB 线通信？</summary><p>iOS 不允许 App 直接和非 MFi 认证的 USB 设备通信；唯一可行的"伪装成 MIDI 设备"方案又会让手机反过来给支架供电。所以线只负责给手机充电，指令走 BLE——每秒 30 个 8 字节的包，延迟 15–30 ms，完全够用。</p></details>
+    <details><summary>对面球员、捡球的人会不会把镜头"抢走"？</summary><p>不会。开拍前点一下自己锁定，之后每帧按位置重叠、距离和体型打分，画面高度不到 12% 的人（远端对手、路人）直接忽略；跟丢 1 秒后在原方向附近慢速搜索，3 秒后回中等你。</p></details>
+    <details><summary>为什么不用苹果 DockKit？</summary><p>DockKit 需要 MFi 认证，众筹阶段先用自研 BLE 协议保证开放。量产时我们计划申请 MFi 并同时支持 DockKit，让系统相机也能直接跟拍。</p></details>
+    <details><summary>夏天户外会不会过热？</summary><p>App 实时监测 iPhone 发热：偏热时降低识别频率，严重时降帧率并暂停充电。托架背面有通风槽，建议在阳光下配一把遮阳伞。</p></details>
+    <details><summary>能拍双打 / 能放在侧面吗？</summary><p>v1 针对"底线后方跟拍自己"优化。双打套装支持两个机位同时拍；自动俯仰轴和多人切换在后续版本里。</p></details>
+    <details><summary>众筹有什么风险？</summary><p>硬件众筹存在延期风险。我们已完成全部设计和代码，并公开 BOM 与 CAD；主要风险在注塑开模和认证周期。若项目未达目标，全额退款。</p></details>
+  </div>
+</section>
+
+<!-- ============ SUBSCRIBE ============ -->
+<section class="section subscribe" id="subscribe">
+  <div class="sub-box reveal">
+    <p class="kicker">09 / JOIN</p>
+    <h2>上线那一刻，<span class="hl">第一个通知你。</span></h2>
+    <p class="sub">留下邮箱，锁定早鸟资格。我们只发上线提醒和关键进展，不发广告。</p>
+    <form id="subForm" novalidate>
+      <span class="prompt mono">&gt;</span>
+      <input type="email" id="subEmail" placeholder="you@court.dev" autocomplete="email" required aria-label="邮箱">
+      <select id="subTier" aria-label="意向档位">
+        <option value="SUPER_EARLY">超级早鸟 ¥599</option>
+        <option value="DIY">极客 DIY ¥399</option>
+        <option value="EARLY">早鸟 ¥699</option>
+        <option value="DOUBLES">双打套装 ¥1,199</option>
+      </select>
+      <button class="btn btn-solid" type="submit">ENTER ↵</button>
+    </form>
+    <p class="sub-msg mono" id="subMsg" role="status"></p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <span class="logo">TENNISMOUNT<span class="cursor">_</span></span>
+  <span class="mono dim">/* built with FOC, Vision &amp; too much caffeine · © 2026 */</span>
+  <a class="mono" href="#top">↑ TOP</a>
+</footer>
+
+<script type="module" src="main.js"></script>
+</body>
+</html>
