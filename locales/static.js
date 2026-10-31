@@ -177,18 +177,18 @@ Fork 它、改它、超越它。| フォークして、改造して、その先�
 build123d CAD · STEP/STL · 原理图 · BOM|build123d CAD · STEP/STL · 回路図 · BOM|build123d CAD · STEP/STL · 회로도 · BOM|build123d CAD · STEP/STL · esquemas · BOM
 会员是核心，|中心はメンバーシップ。|핵심은 멤버십,|La suscripción es la base.
 硬件随你选| ハードウェアは自由に選べる| 하드웨어는 선택| El hardware lo eliges tú
-不买支架也能用：手机放在任何三脚架或围网夹上，照样上云、出报告、有教练。众筹目标 ¥300,000，上线后 48 小时内为早鸟价，以下为预热价，上线时以众筹平台为准。|マウントがなくても、三脚やフェンスクランプにスマホを置くだけでクラウド保存、レポート、コーチングを利用できます。目標額は¥300,000。開始後48時間は早期価格。以下は予定価格で、開始時のプラットフォーム掲載内容が優先されます。|마운트 없이도 삼각대나 펜스 클램프에 휴대폰을 놓으면 클라우드 업로드, 리포트, 코칭을 이용할 수 있습니다. 목표 금액은 ¥300,000, 얼리버드 가격은 시작 후 48시간 동안 적용됩니다. 아래는 사전 공개 가격이며 최종 조건은 펀딩 플랫폼을 따릅니다.|No necesitas soporte: coloca el móvil en cualquier trípode o abrazadera para subir vídeos, obtener informes y recibir consejos. Objetivo: ¥300.000. Precio anticipado durante las primeras 48 horas. Estos precios son orientativos; las ofertas finales serán las publicadas en la plataforma.
+不买支架也能用：手机放在任何三脚架或围网夹上，照样上云、出报告、有教练。众筹目标 $45,000，上线后 48 小时内为早鸟价，以下为预热价，上线时以众筹平台为准。|マウントがなくても、三脚やフェンスクランプにスマホを置くだけでクラウド保存、レポート、コーチングを利用できます。目標額は$45,000。開始後48時間は早期価格。以下は予定価格で、開始時のプラットフォーム掲載内容が優先されます。|마운트 없이도 삼각대나 펜스 클램프에 휴대폰을 놓으면 클라우드 업로드, 리포트, 코칭을 이용할 수 있습니다. 목표 금액은 $45,000, 얼리버드 가격은 시작 후 48시간 동안 적용됩니다. 아래는 사전 공개 가격이며 최종 조건은 펀딩 플랫폼을 따릅니다.|No necesitas soporte: coloca el móvil en cualquier trípode o abrazadera para subir vídeos, obtener informes y recibir consejos. Objetivo: $45.000. Precio anticipado durante las primeras 48 horas. Estos precios son orientativos; las ofertas finales serán las publicadas en la plataforma.
 免费|無料|무료|Gratis
 录像 + 实时击球计数|録画＋リアルタイム打球数|촬영 + 실시간 타구 수|Grabación + recuento de golpes en directo
 云端 30 GB|クラウド30 GB|클라우드 30 GB|30 GB en la nube
 每月 3 小时云端报告|毎月3時間分のクラウドレポート|월 3시간 클라우드 리포트|3 horas de informes en la nube al mes
 语音教练试用 3 次|音声コーチを3回お試し|음성 코치 3회 체험|3 pruebas del entrenador de voz
-/月 · ¥268/年|/月 · ¥268/年|/월 · ¥268/년|/mes · ¥268/año
+/月 · $39/年|/月 · $39/年|/월 · $39/년|/mes · $39/año
 云端 300 GB|クラウド300 GB|클라우드 300 GB|300 GB en la nube
 每月 30 小时云端报告|毎月30時間分のクラウドレポート|월 30시간 클라우드 리포트|30 horas de informes en la nube al mes
 实时语音教练 · 3 种性格|リアルタイム音声コーチ · 3つの性格|실시간 음성 코치 · 3가지 성격|Entrenador de voz en directo · 3 personalidades
 豆包真人音色|Doubaoの自然な音声|Doubao 자연스러운 음성|Voces naturales de Doubao
-/月 · ¥888/年|/月 · ¥888/年|/월 · ¥888/년|/mes · ¥888/año
+/月 · $129/年|/月 · $129/年|/월 · $129/년|/mes · $129/año
 云端 1 TB|クラウド1 TB|클라우드 1 TB|1 TB en la nube
 云端报告不限时长|クラウドレポート時間無制限|클라우드 리포트 시간 무제한|Informes en la nube sin límite de horas
 自定义教练性格|コーチの性格をカスタマイズ|코치 성격 맞춤 설정|Personalidades de entrenador personalizadas
@@ -205,7 +205,7 @@ Max 年卡（1 TB + 不限报告）|Max年間プラン（1 TB＋レポート無�
 TennisMount 跟拍底座 ×1|TennisMount追尾ベース ×1|TennisMount 추적 베이스 ×1|Base de seguimiento TennisMount ×1
 围网挂钩夹 + MagSafe 引磁片 + USB-C 短线|フェンスフッククランプ＋MagSafeリング＋短いUSB-Cケーブル|펜스 후크 클램프 + MagSafe 링 + 짧은 USB-C 케이블|Abrazadera de gancho + anillo MagSafe + cable USB-C corto
 Max 年卡|Max年間プラン|Max 연간 플랜|Plan Max anual
-（价值 ¥888）|（¥888相当）| (¥888 상당)| (valor de ¥888)
+（价值 $129）|（$129相当）| ($129 상당)| (valor de $129)
 编号激光铭牌（#001–#500）|レーザー刻印の番号プレート（#001〜#500）|레이저 각인 일련번호 플레이트 (#001~#500)|Placa numerada grabada con láser (#001–#500)
 限量 500 台|限定500台|500대 한정|Limitado a 500 unidades
 锁定资格 →|枠を確保 →|참여 자격 확보 →|Asegura tu plaza →
@@ -232,7 +232,7 @@ RTMW-x 高精度复盘；教练可查看学员报告、标注重点。支架 DVT
 支架按档位发货；Ambodi 戒指“网球模式”测挥拍速度。|支援プランごとにマウント出荷。Ambodiリングのテニスモードでスイング速度を計測。|리워드별 마운트 배송, Ambodi 링의 테니스 모드로 스윙 속도 측정.|Envío de soportes por nivel de recompensa; medición de velocidad de swing con el modo tenis del anillo Ambodi.
 你可能想问的。|よくある質問。|궁금한 점을 모았습니다.|Buenas preguntas.
 不买跟拍底座能用吗？|追尾ベースなしでも使えますか？|추적 베이스 없이도 사용할 수 있나요?|¿Puedo usarlo sin la base de seguimiento?
-能。App 才是核心：用手机夹把手机装到围网挂钩夹、大力夹或三脚架上，照样边拍边上云、出报告、有语音教练。挂在身后围网上（多数球场离底线 5.5–6.4 米）1 倍镜头就能拍全身，跟拍底座只是让画面更居中。自己配的话，挂钩夹 + 手机夹约 ¥61，采购清单里每样都有淘宝链接。|はい。中心はアプリです。フェンスフッククランプ、スーパークランプ、三脚にスマホを固定するだけで、撮影中アップロード、レポート、音声コーチを利用できます。背後のフェンス（多くのコートでベースラインから5.5〜6.4 m）なら1xレンズで全身を撮影可能。追尾ベースは中央を保つためのものです。自作ならクランプとスマホホルダーで約¥61。購入リストに各商品のTaobaoリンクがあります。|네. 핵심은 앱입니다. 펜스 후크 클램프, 슈퍼 클램프 또는 삼각대에 휴대폰을 고정하면 촬영 중 업로드, 리포트, 음성 코칭을 이용할 수 있습니다. 뒤쪽 펜스(대부분 베이스라인 뒤 5.5~6.4 m)에서는 1배 렌즈로 전신을 담을 수 있습니다. 추적 베이스는 중앙 유지를 도울 뿐입니다. 직접 구성하면 클램프와 휴대폰 홀더는 약 ¥61이며, 구매 목록에 품목별 Taobao 링크가 있습니다.|Sí. Lo esencial es la app: fija el móvil a una abrazadera de valla, superabrazadera o trípode para subir mientras grabas y recibir informes y consejos. Desde la valla trasera, normalmente a 5,5–6,4 m de la línea de fondo, el objetivo 1x capta todo el cuerpo. La base solo mejora el centrado. Un montaje DIY con abrazadera y pinza cuesta unos ¥61; la lista de compra incluye enlaces de Taobao para cada pieza.
+能。App 才是核心：用手机夹把手机装到围网挂钩夹、大力夹或三脚架上，照样边拍边上云、出报告、有语音教练。挂在身后围网上（多数球场离底线 5.5–6.4 米）1 倍镜头就能拍全身，跟拍底座只是让画面更居中。自己配的话，挂钩夹 + 手机夹约 $9，采购清单里每样都有淘宝链接。|はい。中心はアプリです。フェンスフッククランプ、スーパークランプ、三脚にスマホを固定するだけで、撮影中アップロード、レポート、音声コーチを利用できます。背後のフェンス（多くのコートでベースラインから5.5〜6.4 m）なら1xレンズで全身を撮影可能。追尾ベースは中央を保つためのものです。自作ならクランプとスマホホルダーで約$9。購入リストに各商品のTaobaoリンクがあります。|네. 핵심은 앱입니다. 펜스 후크 클램프, 슈퍼 클램프 또는 삼각대에 휴대폰을 고정하면 촬영 중 업로드, 리포트, 음성 코칭을 이용할 수 있습니다. 뒤쪽 펜스(대부분 베이스라인 뒤 5.5~6.4 m)에서는 1배 렌즈로 전신을 담을 수 있습니다. 추적 베이스는 중앙 유지를 도울 뿐입니다. 직접 구성하면 클램프와 휴대폰 홀더는 약 $9이며, 구매 목록에 품목별 Taobao 링크가 있습니다.|Sí. Lo esencial es la app: fija el móvil a una abrazadera de valla, superabrazadera o trípode para subir mientras grabas y recibir informes y consejos. Desde la valla trasera, normalmente a 5,5–6,4 m de la línea de fondo, el objetivo 1x capta todo el cuerpo. La base solo mejora el centrado. Un montaje DIY con abrazadera y pinza cuesta unos $9; la lista de compra incluye enlaces de Taobao para cada pieza.
 视频存在哪里？别人能看到吗？|映像の保存先は？他の人にも見えますか？|영상은 어디에 저장되나요? 다른 사람도 볼 수 있나요?|¿Dónde se guarda el vídeo? ¿Puede verlo otra persona?
 存在国内的火山引擎对象存储（上海），私有存储桶，只能用你账号签发的短时链接访问；可以一键删除整场。分享报告默认只分享骨骼动画，不分享原片。|中国・上海のVolcengineオブジェクトストレージの非公開バケットに保存します。自分のアカウントが発行する短時間のリンクだけでアクセスでき、セッション全体をワンタップで削除可能。共有レポートは標準で姿勢アニメーションのみを含み、元映像は共有しません。|중국 상하이의 Volcengine 비공개 스토리지 버킷에 저장합니다. 내 계정이 발급한 단기 링크로만 접근하며 세션 전체를 한 번에 삭제할 수 있습니다. 리포트 공유 시 기본적으로 자세 애니메이션만 공유하며 원본 영상은 포함하지 않습니다.|En un depósito privado de Volcengine en Shanghái, China. Solo se accede con enlaces de corta duración emitidos por tu cuenta. Puedes borrar toda una sesión con un toque. Los informes compartidos muestran por defecto la animación de postura, no el vídeo original.
 打球戴耳机不方便怎么办？|イヤホンを使いたくない場合は？|운동할 때 이어폰이 불편하면 어떻게 하나요?|¿Y si no quiero llevar auriculares?
@@ -258,10 +258,10 @@ v1 针对“底线后方跟拍自己”优化。双打套装支持两个机位�
 留下邮箱，锁定早鸟资格。我们只发上线提醒和关键进展，不发广告。|メール登録で早期特典の対象に。開始のお知らせと重要な進捗だけをお届け。広告は送りません。|이메일을 남기고 얼리버드 자격을 확보하세요. 출시 알림과 주요 소식만 보내며 광고는 보내지 않습니다.|Deja tu correo para acceder al precio anticipado. Solo avisos de lanzamiento y novedades importantes. Sin anuncios.
 邮箱|メールアドレス|이메일 주소|Correo electrónico
 意向档位|希望の支援プラン|희망 리워드|Recompensa preferida
-超级早鸟 ¥1,199|超早期プラン ¥1,199|슈퍼 얼리버드 ¥1,199|Superanticipada ¥1.199
-云会员早鸟 ¥588|クラウド早期プラン ¥588|클라우드 얼리버드 ¥588|Nube anticipada ¥588
-极客 DIY ¥599|ハッカーDIY ¥599|해커 DIY ¥599|DIY para makers ¥599
-双打套装 ¥1,899|ダブルスセット ¥1,899|복식 번들 ¥1,899|Pack de dobles ¥1.899
+超级早鸟 $169|超早期プラン $169|슈퍼 얼리버드 $169|Superanticipada $169
+云会员早鸟 $85|クラウド早期プラン $85|클라우드 얼리버드 $85|Nube anticipada $85
+极客 DIY $89|ハッカーDIY $89|해커 DIY $89|DIY para makers $89
+双打套装 $269|ダブルスセット $269|복식 번들 $269|Pack de dobles $269
 `.trim().split('\n').map(row => row.split('|'));
 
 /* English-first labels that were already English in the original design. */
