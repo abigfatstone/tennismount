@@ -164,7 +164,7 @@ Apple Vision 人体检测 · 点选锁定 · 跟丢自动找回|Apple Vision人�
 安装|取り付け|장착|Montaje
 1/4"-20 标准螺孔 · 三脚架 / 围网夹|標準1/4"-20ねじ · 三脚／フェンスクランプ|표준 1/4"-20 나사 · 삼각대 / 펜스 클램프|Rosca estándar 1/4"-20 · trípode / abrazadera de valla
 开源协议|オープンソース|오픈 소스|Código abierto
-固件 / App / CAD 全部公开|ファームウェア／アプリ／CADをすべて公開|펌웨어 / 앱 / CAD 모두 공개|Firmware / app / CAD publicados íntegramente
+Apache-2.0 · 固件 / App / CAD 全部公开|Apache-2.0 · ファームウェア／アプリ／CADをすべて公開|Apache-2.0 · 펌웨어 / 앱 / CAD 모두 공개|Apache-2.0 · Firmware / app / CAD publicados íntegramente
 不藏一行代码。|コードは一行も隠さない。|코드 한 줄도 숨기지 않습니다.|Ni una línea oculta.
 Fork 它、改它、超越它。| フォークして、改造して、その先へ。| 포크하고, 바꾸고, 더 나아가세요.| Haz un fork. Modifícalo. Llévalo más lejos.
 众筹支持者拿到的不只是一台设备，还有完整的固件、iOS App 和参数化 CAD——57 + 64 个单元测试全绿。|支援者に届くのは機器だけではありません。完全なファームウェア、iOSアプリ、パラメトリックCADも付属し、57＋64の単体テストをすべて通過しています。|후원자는 기기뿐 아니라 전체 펌웨어, iOS 앱, 파라메트릭 CAD도 받습니다. 단위 테스트 57 + 64개를 모두 통과했습니다.|Los patrocinadores reciben más que un dispositivo: firmware completo, app iOS y CAD paramétrico, con 57 + 64 pruebas unitarias superadas.

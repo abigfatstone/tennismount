@@ -81,7 +81,7 @@ window.TM_STATIC_ENGLISH = [
   "Recording + iPhone charging ≈ 2.5 h; motor only > 15 h", "Charging", "USB-C input · USB-C 5 V/3 A output to phone",
   "Phone", "iPhone · iOS 17+ · MagSafe (adapter ring included)", "Recording", "1080p60 / 4K30 · HEVC · save directly to Photos",
   "Detection", "Apple Vision body detection · tap to lock · automatic reacquisition", "Mounting",
-  "Standard 1/4\"-20 thread · tripod / fence clamp", "Open source", "Firmware / app / CAD fully published",
+  "Standard 1/4\"-20 thread · tripod / fence clamp", "Open source", "Apache-2.0 · firmware / app / CAD fully published",
   "Not a line hidden.", "Fork it. Mod it. Take it further.",
   "Backers get more than a device: complete firmware, the iOS app and parametric CAD, with 57 + 64 unit tests passing.",
   "// core 1 · 1 kHz real-time control loop", "// speed, acceleration and travel limits", "// stall / overtemperature / heartbeat",
