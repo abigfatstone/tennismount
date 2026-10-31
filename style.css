@@ -63,6 +63,12 @@ b { font-weight: 700; }
 @keyframes blink { 50% { opacity: 0; } }
 .links { display: flex; gap: 22px; margin-left: auto; font-family: var(--mono); font-size: 12.5px; color: var(--dim); }
 .links a:hover { color: var(--acc); }
+#languageSelect {
+  flex: 0 0 auto; max-width: 112px; min-height: 36px; padding: 6px 9px;
+  border: 1px solid var(--line); border-radius: 8px; background: var(--bg2);
+  color: var(--fg); font-family: var(--sans); font-size: 12px; cursor: pointer;
+}
+#languageSelect:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
 
 /* ---------- buttons ---------- */
 .btn {
@@ -223,7 +229,7 @@ h3 { font-size: 19px; margin: 6px 0 10px; }
 .rp-counts span { font-size: 12px; color: var(--dim); }
 .rp-metric > span { font-size: 12.5px; color: var(--dim); }
 .rp-bars { display: grid; gap: 8px; margin-top: 8px; }
-.rp-bars div { display: grid; grid-template-columns: 3em 1fr 4.5em; align-items: center; gap: 10px; font-size: 13px; }
+.rp-bars div { display: grid; grid-template-columns: 5.5em minmax(0, 1fr) 4.5em; align-items: center; gap: 10px; font-size: 13px; }
 .rp-bars em { font-style: normal; color: var(--dim); }
 .rp-bars i { height: 10px; border-radius: 6px; width: var(--w); background: var(--acc); }
 .rp-bars .late i { background: var(--hot); }
@@ -384,6 +390,8 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: 0; bord
 
 /* ---------- responsive ---------- */
 @media (max-width: 1100px) {
+  .links { display: none; }
+  #languageSelect { margin-left: auto; }
   .hero { grid-template-columns: 1fr; }
   .hero-3d { height: 64vh; }
   .demo, .inside, .cloud, .mounts { grid-template-columns: 1fr; }
@@ -396,6 +404,10 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: 0; bord
 }
 @media (max-width: 720px) {
   .links { display: none; }
+  .nav { gap: 10px; flex-wrap: wrap; }
+  .nav .logo { margin-right: auto; }
+  #languageSelect { margin-left: auto; }
+  .nav > .btn { font-size: 11px; padding: 8px 11px; }
   .nav .btn { margin-left: auto; }
   .cards3, .specs, .repo, .tiers, .pipe, .plans, .personas, .cues, .routes { grid-template-columns: 1fr; }
   .cs-row { grid-template-columns: 1fr; }
@@ -405,6 +417,7 @@ input[type=range]::-moz-range-thumb { width: 18px; height: 18px; border: 0; bord
   .specs { padding: 18px; }
   .specs div { grid-template-columns: 7.5em 1fr; font-size: 12.5px; }
   .hero-stats { grid-template-columns: repeat(2, 1fr); }
+  .hud-hint { bottom: 48px; left: 28px; right: auto; }
   .countdown div { min-width: 0; flex: 1; }
   .road { grid-template-columns: 1fr; }
   .road::before { display: none; }

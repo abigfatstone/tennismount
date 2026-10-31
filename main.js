@@ -3,6 +3,7 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { toCreasedNormals } from "three/addons/utils/BufferGeometryUtils.js";
+import { runtimeText as t, coachContent, speechLocale, selectVoice, nextPhraseIndex } from "./runtime-i18n.js";
 
 /* ===== 配置 ===== */
 const LAUNCH_AT = new Date("2026-12-01T20:00:00+08:00");
@@ -19,24 +20,25 @@ const DEG = Math.PI / 180;
 (function boot() {
   const el = $("#boot"), log = $("#bootlog");
   if (REDUCED || sessionStorage.getItem("tm-booted")) { el.classList.add("gone"); return; }
-  const lines = [
-    "TennisMount bootloader v1.0.0 · ESP32-S3 @ 240 MHz",
-    "[ <span class=ok>OK</span> ] MT6701 encoder ......... 14-bit abs @ 0x06",
-    "[ <span class=ok>OK</span> ] FOC align .............. pole_pairs=7  skip (NVS)",
-    "[ <span class=ok>OK</span> ] planner ................ vmax=120°/s amax=600°/s²",
-    "[ <span class=ok>OK</span> ] BLE advertising ........ TennisMount-7E4B",
-    "[ <span class=ok>OK</span> ] battery ................ 4.02 V · 82%",
-    "> link iPhone ... connected · rtt 31 ms",
-    "> mode TRACK_",
+  const lines = () => [
+    `TennisMount ${t("bootloader")} v1.0.0 · ESP32-S3 @ 240 MHz`,
+    `[ <span class=ok>OK</span> ] MT6701 ${t("encoder")} ......... 14-bit abs @ 0x06`,
+    `[ <span class=ok>OK</span> ] ${t("align")} .............. pole_pairs=7  skip (NVS)`,
+    `[ <span class=ok>OK</span> ] ${t("planner")} ................ vmax=120°/s amax=600°/s²`,
+    `[ <span class=ok>OK</span> ] ${t("advertising")} ........ TennisMount-7E4B`,
+    `[ <span class=ok>OK</span> ] ${t("battery")} ................ 4.02 V · 82%`,
+    `> ${t("link")} · rtt 31 ms`,
+    `> ${t("bootMode")}`,
   ];
   let i = 0;
   const done = () => { el.classList.add("gone"); sessionStorage.setItem("tm-booted", "1"); };
   el.addEventListener("click", done);
   const tick = () => {
-    if (i < lines.length) { log.innerHTML += lines[i++] + "\n"; setTimeout(tick, 110); }
+    if (i < lines().length) { log.innerHTML += lines()[i++] + "\n"; setTimeout(tick, 110); }
     else setTimeout(done, 380);
   };
   tick();
+  window.addEventListener("tm:languagechange", () => { log.innerHTML = lines().slice(0, i).join("\n") + "\n"; });
 })();
 
 /* ===== 滚动出现 / glitch / 倒计时 / 磁吸按钮 ===== */
@@ -50,10 +52,12 @@ if (!REDUCED) setInterval(() => { glitch.classList.add("go"); setTimeout(() => g
 
 (function countdown() {
   const el = $("#countdown");
+  const showLive = () => { el.innerHTML = `<div style="flex:1"><b>${t("liveTitle")}</b><span>${t("liveSubtitle")}</span></div>`; $("#launchTag").textContent = t("launchTag"); };
+  window.addEventListener("tm:languagechange", () => { if (LAUNCH_AT <= Date.now()) showLive(); });
   const set = (k, v) => { $(`[data-k=${k}]`, el).textContent = String(v).padStart(2, "0"); };
   const upd = () => {
     let ms = LAUNCH_AT - Date.now();
-    if (ms <= 0) { el.innerHTML = '<div style="flex:1"><b>LIVE NOW</b><span>众筹已上线</span></div>'; $("#launchTag").textContent = "众筹进行中"; return; }
+    if (ms <= 0) { showLive(); return; }
     const s = Math.floor(ms / 1000);
     set("d", Math.floor(s / 86400)); set("h", Math.floor(s / 3600) % 24); set("m", Math.floor(s / 60) % 60); set("s", s % 60);
     setTimeout(upd, 1000 - (Date.now() % 1000));
@@ -241,17 +245,24 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
       }
     },
   });
-  v.ready.then(() => $("#heroLoading").classList.add("gone")).catch(() => { $("#heroLoading").textContent = "3D 模型加载失败（需通过 http 访问）"; });
+  let modelFailed = false;
+  const renderStatus = () => {
+    if (modelFailed) $("#heroLoading").textContent = t("modelError");
+    hudMode.textContent = t(sim.track ? "modeTrack" : "modeHome");
+  };
+  window.addEventListener("tm:languagechange", renderStatus);
+  renderStatus();
+  v.ready.then(() => $("#heroLoading").classList.add("gone")).catch(() => { modelFailed = true; renderStatus(); });
 
   $$(".hud-ctl .chip").forEach((c) => c.addEventListener("click", () => {
     c.classList.toggle("on");
     const on = c.classList.contains("on");
-    if (c.dataset.act === "track") { sim.track = on; hudMode.textContent = on ? "MODE: TRACK" : "MODE: HOME"; }
+    if (c.dataset.act === "track") { sim.track = on; renderStatus(); }
     if (c.dataset.act === "xray") v.setXray(on);
     if (c.dataset.act === "phone") { v.phoneOn = on; if (v.parts.REF_iPhone) v.parts.REF_iPhone.visible = on && !v.xray; }
   }));
   // 默认显示手机
-  v.ready.then(() => { v.phoneOn = true; $('[data-act="phone"]').classList.add("on"); });
+  v.ready.then(() => { v.phoneOn = true; $('[data-act="phone"]').classList.add("on"); }).catch(() => {});
 })();
 
 /* ===== 拆解视图 ===== */
@@ -309,11 +320,13 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
   const le16 = (v) => { const u = v & 0xffff; return [u & 0xff, u >> 8]; };
   const le32 = (v) => [v & 0xff, (v >>> 8) & 0xff, (v >>> 16) & 0xff, (v >>> 24) & 0xff];
   const lines = [];
-  const log = (cls, s) => { lines.push(`<span class="${cls}">${s}</span>`); if (lines.length > 15) lines.shift(); term.innerHTML = lines.join("\n"); };
+  const renderLog = () => { term.innerHTML = lines.map(({ cls, text }) => `<span class="${cls}">${typeof text === "function" ? text() : text}</span>`).join("\n"); };
+  const log = (cls, text) => { lines.push({ cls, text }); if (lines.length > 15) lines.shift(); renderLog(); };
+  window.addEventListener("tm:languagechange", () => { renderLog(); draw(); });
 
   function newWaypoint(sprint = false) {
     const side = Math.sign(S.p.x) || 1;
-    if (sprint) { S.wp = { x: -side * rnd(3.8, 4.6), y: rnd(0, 0.8) }; S.vmax = 6.8; S.wpAt = S.t + 2.2; log("ev", "EV   sprint! player → " + (side > 0 ? "LEFT" : "RIGHT")); return; }
+    if (sprint) { S.wp = { x: -side * rnd(3.8, 4.6), y: rnd(0, 0.8) }; S.vmax = 6.8; S.wpAt = S.t + 2.2; log("ev", () => t("sprint", { side: t(side > 0 ? "left" : "right") })); return; }
     const big = Math.random() < 0.45;
     S.wp = { x: clamp(big ? -side * rnd(1.5, 4.4) : S.p.x + rnd(-1.4, 1.4), -4.6, 4.6), y: Math.random() < 0.08 ? rnd(2.5, 5) : rnd(-0.6, 1.0) };
     S.vmax = big ? rnd(4.6, 6) : rnd(1.5, 3); S.wpAt = S.t + rnd(0.9, 2.3);
@@ -358,10 +371,10 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
 
   function control(d) {
     if (!d.inFrame) {
-      if (!S.lost) { S.lost = true; log("ev", "EV   target lost → HOLD"); }
+      if (!S.lost) { S.lost = true; log("ev", () => t("targetLost")); }
       return;
     }
-    if (S.lost) { S.lost = false; log("ev", "EV   target re-acquired · score 0.81"); }
+    if (S.lost) { S.lost = false; log("ev", () => t("targetAcquired")); }
     let cmd;
     if (mode === "smart") {
       const z = d.mAt + d.e, h = 1 / 30;           // 用"拍这一帧时"的支架角度
@@ -418,7 +431,7 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
     L(-4.115, 0, -4.115, 11.885); L(4.115, 0, 4.115, 11.885); L(-4.115, 6.4, 4.115, 6.4); L(0, 6.4, 0, 11.885); L(0, 0, 0, 0.15);
     ctx.setLineDash([4, 5]); ctx.strokeStyle = "rgba(58,240,255,.5)"; L(-5.485, 11.885, 5.485, 11.885); ctx.setLineDash([]);
     ctx.fillStyle = "rgba(125,138,148,.8)"; ctx.font = "10px JetBrains Mono, monospace";
-    ctx.fillText("BASELINE", X(-5.4), Y(0) + 13); ctx.fillText("SERVICE LINE", X(-4.05), Y(6.4) - 5);
+    ctx.fillText(t("baseline"), X(-5.4), Y(0) + 13); ctx.fillText(t("serviceLine"), X(-4.05), Y(6.4) - 5);
     // 网格
     ctx.strokeStyle = "rgba(255,255,255,.035)"; ctx.lineWidth = 1;
     for (let gx = Math.ceil(view.x0); gx <= view.x1; gx++) L(gx, view.y0, gx, view.y1);
@@ -442,7 +455,7 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
     // 路人
     if (S.passer) {
       ctx.fillStyle = "rgba(125,138,148,.9)"; ctx.beginPath(); ctx.arc(X(S.passer.x), Y(S.passer.y), 5, 0, 7); ctx.fill();
-      ctx.fillStyle = "rgba(125,138,148,.9)"; ctx.fillText("passer-by · ignored", X(S.passer.x) + 8, Y(S.passer.y) + 4);
+      ctx.fillStyle = "rgba(125,138,148,.9)"; ctx.fillText(t("passer"), X(S.passer.x) + 8, Y(S.passer.y) + 4);
     }
     // 远端对手
     ctx.fillStyle = "rgba(125,138,148,.7)"; ctx.beginPath(); ctx.arc(X(Math.sin(S.t * 0.7) * 2.6), Y(view.y1 - 0.5), 4, 0, 7); ctx.fill();
@@ -454,7 +467,7 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
     ctx.shadowColor = "#d4ff3a"; ctx.shadowBlur = 16; ctx.fillStyle = S.lost ? "#ff3a6e" : "#d4ff3a";
     ctx.beginPath(); ctx.arc(px, py, 7, 0, 7); ctx.fill(); ctx.shadowBlur = 0;
     ctx.strokeStyle = S.lost ? "#ff3a6e" : "#d4ff3a"; ctx.lineWidth = 1.2; ctx.strokeRect(px - 14, py - 20, 28, 34);
-    ctx.fillStyle = S.lost ? "#ff3a6e" : "#d4ff3a"; ctx.fillText(S.lost ? "LOST" : "LOCKED · YOU", px + 18, py - 10);
+    ctx.fillStyle = S.lost ? "#ff3a6e" : "#d4ff3a"; ctx.fillText(t(S.lost ? "lost" : "locked"), px + 18, py - 10);
 
     // 支架
     ctx.save(); ctx.translate(X(CAM.x), Y(CAM.y)); ctx.rotate(m * DEG);
@@ -462,7 +475,7 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
     ctx.beginPath(); ctx.arc(0, 0, 13, 0, 7); ctx.fill(); ctx.stroke();
     ctx.fillStyle = "#d4ff3a"; ctx.fillRect(-9, -16, 18, 5);
     ctx.restore();
-    ctx.fillStyle = "#e8eef2"; ctx.fillText(`MOUNT ${m >= 0 ? "+" : "−"}${Math.abs(m).toFixed(1)}°`, X(CAM.x) + 20, Y(CAM.y) + 4);
+    ctx.fillStyle = "#e8eef2"; ctx.fillText(`${t("mount")} ${m >= 0 ? "+" : "−"}${Math.abs(m).toFixed(1)}°`, X(CAM.x) + 20, Y(CAM.y) + 4);
 
     // 取景条
     const off = Math.tan((bearing(S.p.x, S.p.y) - m) * DEG) / (2 * Math.tan(HALF * DEG)) + 0.5;
@@ -493,11 +506,12 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
   $$(".seg button").forEach((b) => b.addEventListener("click", () => {
     $$(".seg button").forEach((x) => x.classList.toggle("on", x === b));
     mode = b.dataset.mode; S.stats = []; S.flips = []; S.ab.init = false; S.following = false;
-    log("ev", `EV   controller → ${mode === "smart" ? "TennisMount (α-β + τ + deadzone)" : "naive (raw error)"}`);
+    const selectedMode = mode;
+    log("ev", () => t("controller", { mode: t(selectedMode === "smart" ? "smartController" : "naiveController") }));
   }));
   $("#demoSprint").addEventListener("click", () => newWaypoint(true));
-  log("ev", "EV   link up · MTU 23 · interval 15 ms");
-  log("ev", "EV   tap-to-lock → target acquired");
+  log("ev", () => t("linkUp"));
+  log("ev", () => t("tapLock"));
 })();
 
 /* ===== 边录边传仿真（60 倍速：每段 60 s → 1 s） ===== */
@@ -541,50 +555,46 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
 /* ===== 语音教练试听（句库同 docs/COACH_SPEC.md §2） ===== */
 (function coachDemo() {
   const list = $("#cueList"); if (!list) return;
-  const CUES = [["bh_late", "反手引拍晚"], ["fh_late", "正手准备晚"], ["turn", "转肩不够"], ["follow", "随挥不完整"], ["knees", "重心太高"], ["praise", "连续 5 拍很好"]];
-  const LINES = {
-    gentle: { fh_late: ["正手可以早点准备哦", "拍子早点拉开会更从容", "下一拍早一点引拍试试"], bh_late: ["反手再早一点点就完美了", "看到球就转身拉拍", "反手别着急，先准备"],
-      turn: ["肩膀再转多一点哦", "试试把背转给球网", "转肩会更省力"], follow: ["随挥可以再长一点", "拍子收到肩膀上面", "打完把拍子送出去"],
-      knees: ["膝盖稍微弯一点更稳哦", "重心放低会更舒服", "试试蹲低一点"], praise: ["这几拍好棒", "节奏很好，继续", "越来越稳了"] },
-    funny: { fh_late: ["正手又在等球请吃饭？", "球都到了你才想起拉拍", "早点引拍，球不等人"], bh_late: ["反手在思考人生吗？", "反手慢半拍，球已下班", "反手：我还没准备好！"],
-      turn: ["转肩！你又不是机器人", "肩膀转起来，别光甩手", "身体也想参与一下"], follow: ["随挥呢？刹车太急了", "拍子送到肩上，别半路下车", "挥完它，别害羞"],
-      knees: ["腿是借来的吗？弯一下", "你在打网球不是站岗", "低一点，再低一点"], praise: ["可以啊，偷偷练过？", "这拍我给满分", "教练要失业了"] },
-    strict: { fh_late: ["正手准备晚了", "提前引拍", "正手，早！"], bh_late: ["反手引拍晚", "反手提前转身", "反手，早准备！"],
-      turn: ["转肩不够", "多转肩", "用身体打球！"], follow: ["随挥不完整", "收拍过肩", "随挥！"],
-      knees: ["重心太高", "屈膝", "降重心！"], praise: ["很好，保持", "动作到位", "继续保持"] },
-  };
   const VOICE = { gentle: { rate: 0.95, pitch: 1.15 }, funny: { rate: 1.12, pitch: 1.3 }, strict: { rate: 1.08, pitch: 0.75 } };
   const synth = window.speechSynthesis;
   let persona = "gentle", lastIdx = {};
   function render() {
     list.innerHTML = "";
-    CUES.forEach(([id, label]) => {
+    const { cues, lines } = coachContent();
+    cues.forEach(([id, label]) => {
       const b = document.createElement("button");
       b.className = "cue"; b.type = "button";
-      b.innerHTML = `<span class="play">▶</span><small>${label}</small><q>${LINES[persona][id][0]}</q>`;
-      b.addEventListener("click", () => speak(id, b));
+      b.dataset.cue = id;
+      b.innerHTML = `<span class="play">▶</span><small>${label}</small><q>${lines[persona][id][0]}</q>`;
       list.appendChild(b);
     });
   }
   function speak(id, btn) {
-    const arr = LINES[persona][id];
-    let k = Math.floor(Math.random() * arr.length);
-    if (arr.length > 1 && k === lastIdx[id]) k = (k + 1) % arr.length;   // 不连续重复同一句
+    const arr = coachContent().lines[persona][id];
+    const k = nextPhraseIndex(arr.length, lastIdx[id]);   // 不连续重复同一句
     lastIdx[id] = k;
     $("q", btn).textContent = arr[k];
     if (!synth) return;
     synth.cancel();
     const u = new SpeechSynthesisUtterance(arr[k]);
-    u.lang = "zh-CN"; Object.assign(u, VOICE[persona]);
-    const zh = synth.getVoices().find((v) => /zh[-_]CN/i.test(v.lang));
-    if (zh) u.voice = zh;
+    u.lang = speechLocale(); Object.assign(u, VOICE[persona]);
+    const voice = selectVoice(synth.getVoices());
+    if (voice) u.voice = voice;
     $$(".cue").forEach((c) => c.classList.remove("speaking"));
     btn.classList.add("speaking");
     u.onend = u.onerror = () => btn.classList.remove("speaking");
     synth.speak(u);
   }
+  list.addEventListener("click", (event) => {
+    const button = event.target.closest("button[data-cue]");
+    if (button && list.contains(button)) speak(button.dataset.cue, button);
+  });
+  const stopSpeech = () => { synth?.cancel(); $$(".cue").forEach((c) => c.classList.remove("speaking")); };
+  window.addEventListener("tm:languagechange", () => { stopSpeech(); lastIdx = {}; render(); });
   $$(".persona").forEach((p) => p.addEventListener("click", () => {
+    stopSpeech();
     persona = p.dataset.p;
+    lastIdx = {};
     $$(".persona").forEach((x) => { x.classList.toggle("on", x === p); x.setAttribute("aria-checked", x === p); });
     render();
   }));
@@ -600,25 +610,40 @@ $$(".tabs button").forEach((b) => b.addEventListener("click", () => {
 /* ===== 订阅 ===== */
 (function subscribe() {
   const form = $("#subForm"), email = $("#subEmail"), tier = $("#subTier"), msg = $("#subMsg");
+  let languageRevision = 0;
+  window.addEventListener("tm:languagechange", () => {
+    languageRevision++;
+    msg.textContent = "";
+    msg.className = "sub-msg mono";
+    email.setCustomValidity("");
+  });
   $$("[data-tier]").forEach((a) => a.addEventListener("click", () => { tier.value = a.dataset.tier; setTimeout(() => email.focus(), 600); }));
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     msg.className = "sub-msg mono";
     const v = email.value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { msg.textContent = "ERR: invalid email · 请检查邮箱格式"; msg.classList.add("err"); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) { msg.textContent = t("invalidEmail"); msg.classList.add("err"); return; }
     const rec = { email: v, tier: tier.value, ts: new Date().toISOString() };
     if (SUBSCRIBE_ENDPOINT) {
-      msg.textContent = "> sending...";
+      const revision = languageRevision;
+      const selectedTier = tier.value;
+      msg.textContent = t("sending");
       try {
         const r = await fetch(SUBSCRIBE_ENDPOINT, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(rec) });
         if (!r.ok) throw new Error(r.status);
-        msg.textContent = `✓ 200 OK · 已锁定 ${tier.selectedOptions[0].text} 资格，上线时第一时间通知你。`;
+        if (revision !== languageRevision) return;
+        const tierLabel = [...tier.options].find((option) => option.value === selectedTier)?.text || selectedTier;
+        msg.textContent = t("subscribeSuccess", { tier: tierLabel });
         form.reset();
-      } catch { msg.textContent = "ERR: network · 提交失败，请稍后再试"; msg.classList.add("err"); }
+      } catch { if (revision !== languageRevision) return; msg.textContent = t("subscribeError"); msg.classList.add("err"); }
     } else {
-      const list = JSON.parse(localStorage.getItem("tm-subs") || "[]"); list.push(rec); localStorage.setItem("tm-subs", JSON.stringify(list));
-      msg.textContent = `✓ 已记下你的意向（${tier.selectedOptions[0].text}）。预览版：订阅服务尚未接入，邮箱只保存在你这台设备的浏览器里。`;
-      form.reset();
+      try {
+        const saved = JSON.parse(localStorage.getItem("tm-subs") || "[]");
+        const list = Array.isArray(saved) ? saved : [];
+        list.push(rec); localStorage.setItem("tm-subs", JSON.stringify(list));
+        msg.textContent = t("subscribePreview", { tier: tier.selectedOptions[0].text });
+        form.reset();
+      } catch { msg.textContent = t("subscribeStorageError"); msg.classList.add("err"); }
     }
   });
 })();
