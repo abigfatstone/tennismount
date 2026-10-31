@@ -183,12 +183,12 @@ build123d CAD · STEP/STL · 原理图 · BOM|build123d CAD · STEP/STL · 回�
 云端 30 GB|クラウド30 GB|클라우드 30 GB|30 GB en la nube
 每月 3 小时云端报告|毎月3時間分のクラウドレポート|월 3시간 클라우드 리포트|3 horas de informes en la nube al mes
 语音教练试用 3 次|音声コーチを3回お試し|음성 코치 3회 체험|3 pruebas del entrenador de voz
-/月 · $119/年|/月 · $119/年|/월 · $119/년|/mes · $119/año
+/月 · $79/年|/月 · $79/年|/월 · $79/년|/mes · $79/año
 云端 300 GB|クラウド300 GB|클라우드 300 GB|300 GB en la nube
 每月 30 小时云端报告|毎月30時間分のクラウドレポート|월 30시간 클라우드 리포트|30 horas de informes en la nube al mes
 实时语音教练 · 3 种性格|リアルタイム音声コーチ · 3つの性格|실시간 음성 코치 · 3가지 성격|Entrenador de voz en directo · 3 personalidades
 豆包真人音色|Doubaoの自然な音声|Doubao 자연스러운 음성|Voces naturales de Doubao
-/月 · $239/年|/月 · $239/年|/월 · $239/년|/mes · $239/año
+/月 · $159/年|/月 · $159/年|/월 · $159/년|/mes · $159/año
 云端 1 TB|クラウド1 TB|클라우드 1 TB|1 TB en la nube
 云端报告不限时长|クラウドレポート時間無制限|클라우드 리포트 시간 무제한|Informes en la nube sin límite de horas
 自定义教练性格|コーチの性格をカスタマイズ|코치 성격 맞춤 설정|Personalidades de entrenador personalizadas
@@ -205,7 +205,7 @@ Max 年卡（1 TB + 不限报告）|Max年間プラン（1 TB＋レポート無�
 TennisMount 跟拍底座 ×1|TennisMount追尾ベース ×1|TennisMount 추적 베이스 ×1|Base de seguimiento TennisMount ×1
 围网挂钩夹 + MagSafe 引磁片 + USB-C 短线|フェンスフッククランプ＋MagSafeリング＋短いUSB-Cケーブル|펜스 후크 클램프 + MagSafe 링 + 짧은 USB-C 케이블|Abrazadera de gancho + anillo MagSafe + cable USB-C corto
 Max 年卡|Max年間プラン|Max 연간 플랜|Plan Max anual
-（价值 $239）|（$239相当）| ($239 상당)| (valor de $239)
+（价值 $159）|（$159相当）| ($159 상당)| (valor de $159)
 编号激光铭牌（#001–#500）|レーザー刻印の番号プレート（#001〜#500）|레이저 각인 일련번호 플레이트 (#001~#500)|Placa numerada grabada con láser (#001–#500)
 限量 500 台|限定500台|500대 한정|Limitado a 500 unidades
 锁定资格 →|枠を確保 →|참여 자격 확보 →|Asegura tu plaza →
@@ -258,10 +258,10 @@ v1 针对“底线后方跟拍自己”优化。双打套装支持两个机位�
 留下邮箱，锁定早鸟资格。我们只发上线提醒和关键进展，不发广告。|メール登録で早期特典の対象に。開始のお知らせと重要な進捗だけをお届け。広告は送りません。|이메일을 남기고 얼리버드 자격을 확보하세요. 출시 알림과 주요 소식만 보내며 광고는 보내지 않습니다.|Deja tu correo para acceder al precio anticipado. Solo avisos de lanzamiento y novedades importantes. Sin anuncios.
 邮箱|メールアドレス|이메일 주소|Correo electrónico
 意向档位|希望の支援プラン|희망 리워드|Recompensa preferida
-超级早鸟 $329|超早期プラン $329|슈퍼 얼리버드 $329|Superanticipada $329
-云会员早鸟 $169|クラウド早期プラン $169|클라우드 얼리버드 $169|Nube anticipada $169
-极客 DIY $159|ハッカーDIY $159|해커 DIY $159|DIY para makers $159
-双打套装 $499|ダブルスセット $499|복식 번들 $499|Pack de dobles $499
+超级早鸟 $279|超早期プラン $279|슈퍼 얼리버드 $279|Superanticipada $279
+云会员早鸟 $119|クラウド早期プラン $119|클라우드 얼리버드 $119|Nube anticipada $119
+极客 DIY $139|ハッカーDIY $139|해커 DIY $139|DIY para makers $139
+双打套装 $429|ダブルスセット $429|복식 번들 $429|Pack de dobles $429
 `.trim().split('\n').map(row => row.split('|'));
 
 /* English-first labels that were already English in the original design. */

@@ -89,13 +89,13 @@ window.TM_STATIC_ENGLISH = [
   "build123d CAD · STEP/STL · schematics · BOM", "Membership at the core.", "Hardware is your choice",
   "No mount required: put your phone on any tripod or fence clamp for cloud uploads, reports and coaching. Funding goal: $100,000. Early-bird pricing runs for the first 48 hours. These are preview prices; final offers are set on the crowdfunding platform at launch.",
   "Free", "Recording + live stroke count", "30 GB cloud storage", "3 hours of cloud reports / month", "3 voice coach trials",
-  "/month · $119/year", "300 GB cloud storage", "30 hours of cloud reports / month", "Live voice coach · 3 personalities",
-  "Natural Doubao voices", "/month · $239/year", "1 TB cloud storage", "Unlimited cloud report hours", "Custom coach personalities",
+  "/month · $79/year", "300 GB cloud storage", "30 hours of cloud reports / month", "Live voice coach · 3 personalities",
+  "Natural Doubao voices", "/month · $159/year", "1 TB cloud storage", "Unlimited cloud report hours", "Custom coach personalities",
   "Refined RTMW-x review · ring data fusion (coming soon)", "Subscribe for early-bird eligibility", "Cloud early bird",
   "Max annual plan (1 TB + unlimited reports)", "Three coach personalities + natural voices",
   "Finished fence hook clamp + phone holder included (free shipping)", "No tracking base needed: mount on the fence and record",
   "Limited to 2,000", "Reserve →", "Super early bird", "TennisMount tracking base ×1",
-  "Fence hook clamp + MagSafe adapter ring + short USB-C cable", "Max annual plan", "($239 value)",
+  "Fence hook clamp + MagSafe adapter ring + short USB-C cable", "Max annual plan", "($159 value)",
   "Laser-engraved serial plate (#001–#500)", "Limited to 500 units", "Secure your spot →", "Hacker DIY kit",
   "All electronics + motor + bearing + battery", "Print your own shell and hook clamp from STL", "6-month Pro plan",
   "Soldering / assembly / tuning guides", "Limited to 300 sets", "Doubles bundle", "Tracking bases ×2 + hook clamps ×2",
@@ -129,5 +129,5 @@ window.TM_STATIC_ENGLISH = [
   "What are the crowdfunding risks?",
   "Hardware crowdfunding can face delays. All design and code are complete, with BOM and CAD published. The main risks are injection tooling and certification timelines. If the funding goal is not met, backers receive a full refund.",
   "When we launch,", "be first to know.", "Leave your email for early-bird eligibility. Only launch alerts and important updates. No ads.",
-  "Email address", "Preferred reward tier", "Super early bird $329", "Cloud early bird $169", "Hacker DIY $159", "Doubles bundle $499"
+  "Email address", "Preferred reward tier", "Super early bird $279", "Cloud early bird $119", "Hacker DIY $139", "Doubles bundle $429"
 ];
