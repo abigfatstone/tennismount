@@ -500,6 +500,97 @@ function createViewer(canvas, { onFrame, camPos = [2.6, 2.1, 3.4], target = [0, 
   log("ev", "EV   tap-to-lock → target acquired");
 })();
 
+/* ===== 边录边传仿真（60 倍速：每段 60 s → 1 s） ===== */
+(function cloudSim() {
+  const segsEl = $("#csSegs"); if (!segsEl) return;
+  const N = 18, SEG_MB = 60, UPLINK_MBPS = 12;
+  const upSec = (SEG_MB * 8) / UPLINK_MBPS / 60;   // 上传一段需要的"真实秒" / 60 倍速
+  const cells = Array.from({ length: N }, () => segsEl.appendChild(document.createElement("i")));
+  const localEl = $("#csLocal"), cloudEl = $("#csCloud"), lb = $("#csLocalBar"), cb = $("#csCloudBar"), pk = $("#csPackets");
+  let t = 0, last = performance.now(), visible = false, cloudMB = 0;
+  const segs = [];   // {i, recEnd, upEnd, state}
+  new IntersectionObserver(([e]) => { visible = e.isIntersecting; last = performance.now(); }).observe(segsEl);
+  function frame(now) {
+    requestAnimationFrame(frame);
+    const dt = Math.min((now - last) / 1000, 0.1); last = now;
+    if (!visible || REDUCED) return;
+    t += dt;
+    const idx = Math.floor(t);                       // 当前正在录的段
+    if (idx >= N + 2) { t = 0; segs.length = 0; cloudMB = 0; cells.forEach((c) => (c.className = "")); return; }
+    if (idx < N && !segs[idx]) segs[idx] = { i: idx, state: "rec" };
+    let localMB = 0;
+    segs.forEach((s) => {
+      if (!s) return;
+      if (s.state === "rec") {
+        if (t >= s.i + 1) { s.state = "up"; s.upEnd = t + upSec; const p = document.createElement("i"); p.className = "pkt"; pk.appendChild(p); setTimeout(() => p.remove(), 1500); }
+        else localMB += SEG_MB * (t - s.i);
+      }
+      if (s.state === "up") {
+        if (t >= s.upEnd) { s.state = "ok"; cloudMB += SEG_MB; } else localMB += SEG_MB;
+      }
+      cells[s.i].className = s.state;
+    });
+    localEl.textContent = `${Math.round(localMB)} MB`;
+    cloudEl.textContent = `${(cloudMB / 1024).toFixed(2)} GB`;
+    lb.style.width = `${Math.min(100, (localMB / (SEG_MB * 3)) * 100)}%`;
+    cb.style.width = `${(cloudMB / (SEG_MB * N)) * 100}%`;
+  }
+  requestAnimationFrame(frame);
+})();
+
+/* ===== 语音教练试听（句库同 docs/COACH_SPEC.md §2） ===== */
+(function coachDemo() {
+  const list = $("#cueList"); if (!list) return;
+  const CUES = [["bh_late", "反手引拍晚"], ["fh_late", "正手准备晚"], ["turn", "转肩不够"], ["follow", "随挥不完整"], ["knees", "重心太高"], ["praise", "连续 5 拍很好"]];
+  const LINES = {
+    gentle: { fh_late: ["正手可以早点准备哦", "拍子早点拉开会更从容", "下一拍早一点引拍试试"], bh_late: ["反手再早一点点就完美了", "看到球就转身拉拍", "反手别着急，先准备"],
+      turn: ["肩膀再转多一点哦", "试试把背转给球网", "转肩会更省力"], follow: ["随挥可以再长一点", "拍子收到肩膀上面", "打完把拍子送出去"],
+      knees: ["膝盖稍微弯一点更稳哦", "重心放低会更舒服", "试试蹲低一点"], praise: ["这几拍好棒", "节奏很好，继续", "越来越稳了"] },
+    funny: { fh_late: ["正手又在等球请吃饭？", "球都到了你才想起拉拍", "早点引拍，球不等人"], bh_late: ["反手在思考人生吗？", "反手慢半拍，球已下班", "反手：我还没准备好！"],
+      turn: ["转肩！你又不是机器人", "肩膀转起来，别光甩手", "身体也想参与一下"], follow: ["随挥呢？刹车太急了", "拍子送到肩上，别半路下车", "挥完它，别害羞"],
+      knees: ["腿是借来的吗？弯一下", "你在打网球不是站岗", "低一点，再低一点"], praise: ["可以啊，偷偷练过？", "这拍我给满分", "教练要失业了"] },
+    strict: { fh_late: ["正手准备晚了", "提前引拍", "正手，早！"], bh_late: ["反手引拍晚", "反手提前转身", "反手，早准备！"],
+      turn: ["转肩不够", "多转肩", "用身体打球！"], follow: ["随挥不完整", "收拍过肩", "随挥！"],
+      knees: ["重心太高", "屈膝", "降重心！"], praise: ["很好，保持", "动作到位", "继续保持"] },
+  };
+  const VOICE = { gentle: { rate: 0.95, pitch: 1.15 }, funny: { rate: 1.12, pitch: 1.3 }, strict: { rate: 1.08, pitch: 0.75 } };
+  const synth = window.speechSynthesis;
+  let persona = "gentle", lastIdx = {};
+  function render() {
+    list.innerHTML = "";
+    CUES.forEach(([id, label]) => {
+      const b = document.createElement("button");
+      b.className = "cue"; b.type = "button";
+      b.innerHTML = `<span class="play">▶</span><small>${label}</small><q>${LINES[persona][id][0]}</q>`;
+      b.addEventListener("click", () => speak(id, b));
+      list.appendChild(b);
+    });
+  }
+  function speak(id, btn) {
+    const arr = LINES[persona][id];
+    let k = Math.floor(Math.random() * arr.length);
+    if (arr.length > 1 && k === lastIdx[id]) k = (k + 1) % arr.length;   // 不连续重复同一句
+    lastIdx[id] = k;
+    $("q", btn).textContent = arr[k];
+    if (!synth) return;
+    synth.cancel();
+    const u = new SpeechSynthesisUtterance(arr[k]);
+    u.lang = "zh-CN"; Object.assign(u, VOICE[persona]);
+    const zh = synth.getVoices().find((v) => /zh[-_]CN/i.test(v.lang));
+    if (zh) u.voice = zh;
+    $$(".cue").forEach((c) => c.classList.remove("speaking"));
+    btn.classList.add("speaking");
+    u.onend = u.onerror = () => btn.classList.remove("speaking");
+    synth.speak(u);
+  }
+  $$(".persona").forEach((p) => p.addEventListener("click", () => {
+    persona = p.dataset.p;
+    $$(".persona").forEach((x) => { x.classList.toggle("on", x === p); x.setAttribute("aria-checked", x === p); });
+    render();
+  }));
+  render();
+})();
+
 /* ===== 代码页签 ===== */
 $$(".tabs button").forEach((b) => b.addEventListener("click", () => {
   $$(".tabs button").forEach((x) => x.classList.toggle("on", x === b));

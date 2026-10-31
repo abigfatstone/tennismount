@@ -3,18 +3,18 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>TENNISMOUNT_ · 你的专属球场摄影师 · 众筹预热中</title>
-<meta name="description" content="TennisMount：一个会转的冰球。iPhone 看，支架动。FOC 无刷云台 + Vision 人体识别，打球时自动把你留在画面正中间。固件、App、CAD 全部开源。">
-<meta property="og:title" content="TENNISMOUNT_ · 你的专属球场摄影师">
-<meta property="og:description" content="FOC 无刷云台 + iPhone 视觉跟拍，边拍边给手机充电。全开源，众筹预热中。">
+<title>TENNISMOUNT_ · 你的 AI 网球教练 · 众筹预热中</title>
+<meta name="description" content="TennisMount：你的 AI 网球教练。边拍边上云不占手机，每一拍自动识别正反手和发球、分析引拍节奏，耳机或扬声器里有能选性格的语音教练。跟拍支架可选。">
+<meta property="og:title" content="TENNISMOUNT_ · 你的 AI 网球教练">
+<meta property="og:description" content="边拍边上云、每拍自动分析、能选性格的语音教练。跟拍支架可选。众筹预热中。">
 <meta property="og:image" content="assets/preview_exploded.png">
 <meta name="theme-color" content="#05070a">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23d4ff3a'/%3E%3Cpath d='M10 20c14 6 14 18 0 24M54 20c-14 6-14 18 0 24' stroke='%2305070a' stroke-width='4' fill='none'/%3E%3C/svg%3E">
 <link rel="stylesheet" href="style.css">
 <script type="importmap">
 { "imports": {
-  "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
-  "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+  "three": "./vendor/three/three.module.js",
+  "three/addons/": "./vendor/three/addons/"
 } }
 </script>
 </head>
@@ -32,10 +32,11 @@
 <header class="nav">
   <a class="logo" href="#top">TENNISMOUNT<span class="cursor">_</span></a>
   <nav class="links">
-    <a href="#demo">// 跟拍演示</a>
+    <a href="#cloud">// 上云</a>
+    <a href="#coach">// 语音教练</a>
+    <a href="#demo">// 跟拍</a>
+    <a href="#mount">// 机位</a>
     <a href="#inside">// 拆解</a>
-    <a href="#specs">// 参数</a>
-    <a href="#open">// 开源</a>
     <a href="#rewards">// 档位</a>
     <a href="#faq">// FAQ</a>
   </nav>
@@ -49,11 +50,12 @@
   <div class="hero-copy">
     <p class="tag reveal">[ CROWDFUNDING · 预热中 · <span id="launchTag">2026.12.01 20:00 上线</span> ]</p>
     <h1 class="reveal">
-      <span class="glitch" data-text="你的专属">你的专属</span><br>
-      <span class="hl">球场摄影师</span>
+      <span class="glitch" data-text="你的 AI">你的 AI</span><br>
+      <span class="hl">网球教练</span>
     </h1>
-    <p class="lead reveal">一个会转的冰球。<b>iPhone 看，支架动。</b><br>
-      FOC 无刷云台 × Vision 人体识别，你在底线怎么跑，画面都把你留在正中间——还顺手给手机充电。</p>
+    <p class="lead reveal"><b>边拍边上云，手机一个 G 都不占。</b><br>
+      每一拍自动识别正手、反手、发球，算出你的引拍节奏；自己练的时候，耳机或手机里有个能选性格的教练实时提醒。
+      跟拍支架可选——挂在围网上，它会一直把你留在画面中间。</p>
 
     <div class="countdown reveal" id="countdown" aria-label="众筹上线倒计时">
       <div><b data-k="d">00</b><span>DAYS</span></div>
@@ -64,14 +66,14 @@
 
     <div class="cta reveal">
       <a class="btn btn-solid magnetic" href="#subscribe">订阅上线提醒</a>
-      <a class="btn btn-ghost magnetic" href="#demo">▶ 看它怎么跟拍</a>
+      <a class="btn btn-ghost magnetic" href="#coach">▶ 听听教练怎么说</a>
     </div>
 
     <ul class="hero-stats reveal">
-      <li><b>120</b><span>°/s 最高转速</span></li>
-      <li><b>±150</b><span>° 水平行程</span></li>
-      <li><b>2.5</b><span>h 边拍边充</span></li>
-      <li><b>100%</b><span>开源</span></li>
+      <li><b>0 GB</b><span>手机占用</span></li>
+      <li><b>1 TB</b><span>云端球馆录像</span></li>
+      <li><b>3</b><span>种教练性格</span></li>
+      <li><b>67</b><span>ms 识别一拍</span></li>
     </ul>
   </div>
 
@@ -102,12 +104,8 @@
 
 <div class="ticker" aria-hidden="true">
   <div class="ticker-track">
-    <span>FOC @ 1 kHz</span><span>14-BIT ABSOLUTE ENCODER</span><span>BLE 5 · 15 ms</span><span>APPLE VISION · 30 Hz</span>
-    <span>α-β FILTER + LATENCY PREDICTION</span><span>25 kHz SILENT PWM</span><span>21700 · 18.5 Wh</span><span>USB-C 5V/3A → iPhone</span>
-    <span>OPEN FIRMWARE</span><span>OPEN APP</span><span>OPEN CAD</span>
-    <span>FOC @ 1 kHz</span><span>14-BIT ABSOLUTE ENCODER</span><span>BLE 5 · 15 ms</span><span>APPLE VISION · 30 Hz</span>
-    <span>α-β FILTER + LATENCY PREDICTION</span><span>25 kHz SILENT PWM</span><span>21700 · 18.5 Wh</span><span>USB-C 5V/3A → iPhone</span>
-    <span>OPEN FIRMWARE</span><span>OPEN APP</span><span>OPEN CAD</span>
+    <span>ZERO LOCAL STORAGE</span><span>60 s SEGMENTS → TOS</span><span>VERIFY THEN DELETE</span><span>COCO-17 POSE · 30 Hz</span><span>STROKE IN 67 ms</span><span>温柔 / 开玩笑 / 严肃</span><span>RTMW-x CLOUD REVIEW</span><span>1 TB MAX PLAN</span><span>OPTIONAL FOC MOUNT</span><span>FENCE CLAMP · NO FLOOR</span>
+    <span>ZERO LOCAL STORAGE</span><span>60 s SEGMENTS → TOS</span><span>VERIFY THEN DELETE</span><span>COCO-17 POSE · 30 Hz</span><span>STROKE IN 67 ms</span><span>温柔 / 开玩笑 / 严肃</span><span>RTMW-x CLOUD REVIEW</span><span>1 TB MAX PLAN</span><span>OPTIONAL FOC MOUNT</span><span>FENCE CLAMP · NO FLOOR</span>
   </div>
 </div>
 
@@ -115,32 +113,105 @@
 <section class="section problem">
   <div class="sec-head reveal">
     <p class="kicker">00 / WHY</p>
-    <h2>想复盘自己的正手？<br>你需要一个<span class="hl">不累、不走神、不收钱</span>的摄影师。</h2>
+    <h2>想复盘自己的正手？<br>真正卡住你的不是拍，是<span class="hl">拍完之后</span>。</h2>
   </div>
   <div class="cards3">
     <article class="card reveal">
-      <p class="mono dim">ERR_01</p>
-      <h3>固定机位 = 一半时间不在画面里</h3>
-      <p>iPhone 主摄在 4 米外只拍得下 5.5 米宽，单打场地 8.23 米。跑一次大角度，你就出画了。</p>
+      <p class="mono dim">ERR_01 · STORAGE_FULL</p>
+      <h3>拍一场，手机多出好几个 G</h3>
+      <p>传 iCloud，iCloud 也满了。录像躺在相册里，没人看、删又舍不得。</p>
     </article>
     <article class="card reveal">
-      <p class="mono dim">ERR_02</p>
-      <h3>普通跟拍云台：一顿一顿，跟丢就乱转</h3>
-      <p>舵机抖、步进响、算法不认人。对面球员和路人一出现，镜头就被抢走。</p>
+      <p class="mono dim">ERR_02 · NO_FEEDBACK</p>
+      <h3>拍了也看不出问题在哪</h3>
+      <p>一个小时的录像，要自己快进、截图、比对。问题是"引拍晚了 0.15 秒"，肉眼根本看不出来。</p>
     </article>
     <article class="card reveal">
-      <p class="mono dim">ERR_03</p>
-      <h3>拍一小时，手机先没电、再过热</h3>
-      <p>摄像头 + 实时识别每小时吃掉 25–40% 电量。夏天还会被系统强制降画质。</p>
+      <p class="mono dim">ERR_03 · NO_COACH</p>
+      <h3>没教练的时候，没人提醒你</h3>
+      <p>同一个错误连犯二十拍，等回家看录像才发现。练球的那一个小时已经白练了。</p>
     </article>
+  </div>
+</section>
+
+<!-- ============ CLOUD ============ -->
+<section class="section" id="cloud">
+  <div class="sec-head reveal">
+    <p class="kicker">01 / ZERO-STORAGE</p>
+    <h2>录一段、传一段、删一段。<br><span class="hl">手机永远是空的。</span></h2>
+    <p class="sub">每 60 秒切一段，录完立刻直传火山引擎对象存储；服务端校验大小一致才删本地，不会丢片。骨骼在手机上实时算好，跟着视频一起上云，到家报告已经出来了。</p>
+  </div>
+  <div class="cloud reveal">
+    <div class="cloud-sim">
+      <div class="cs-row">
+        <div class="cs-dev">
+          <span class="mono dim">iPhone 本地</span>
+          <div class="cs-meter"><i id="csLocalBar"></i></div>
+          <b class="mono" id="csLocal">0 MB</b>
+        </div>
+        <div class="cs-pipe" aria-hidden="true"><span id="csPackets"></span></div>
+        <div class="cs-dev">
+          <span class="mono dim">云端 TOS</span>
+          <div class="cs-meter cloudy"><i id="csCloudBar"></i></div>
+          <b class="mono" id="csCloud">0.00 GB</b>
+        </div>
+      </div>
+      <div class="cs-segs" id="csSegs"></div>
+      <p class="mono dim cs-note">模拟 1080p60 HEVC 8 Mbps · 每段 60 s ≈ 60 MB · 上行 12 Mbps（此处 60 倍速）</p>
+    </div>
+    <div class="report">
+      <div class="term-bar"><i></i><i></i><i></i><span>report · 10/31 周五晚场 · 1h12m</span></div>
+      <div class="rp-body">
+        <div class="rp-counts">
+          <div><b>8</b><span>正手</span></div>
+          <div><b>7</b><span>反手</span></div>
+          <div><b>4</b><span>发球</span></div>
+        </div>
+        <div class="rp-metric">
+          <span>最低点 → 击球（中位）</span>
+          <div class="rp-bars">
+            <div><em>正手</em><i style="--w:36%"></i><b>0.18 s</b></div>
+            <div class="late"><em>反手</em><i style="--w:66%"></i><b>0.33 s</b></div>
+          </div>
+        </div>
+        <ul class="rp-tips">
+          <li><b>反手引拍偏晚</b>：最低点到击球 0.33 s，比正手慢 0.15 s，存在不必要的"等球"。</li>
+          <li><b>两次反手转肩不足</b>（肩宽比 0.88 / 0.86），多用身体带拍。</li>
+          <li>正手节奏稳定，随挥都收到肩膀以上。</li>
+        </ul>
+        <p class="mono dim">指标口径：COCO-17 骨骼 · 手机端 Apple Vision 实时 / 云端 RTMW-x 精修，两端同一套算法</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ COACH ============ -->
+<section class="section" id="coach">
+  <div class="sec-head reveal">
+    <p class="kicker">02 / VOICE COACH</p>
+    <h2>选一个教练性格，<br>让它<span class="hl">在你耳边吼</span>。</h2>
+    <p class="sub">击球后约 67 毫秒识别出这一拍；同一个毛病五拍里犯两次才开口，两句之间至少隔 8 秒，只在击球后的空档说，不打断下一拍。点下面的按钮试听（用你浏览器的中文语音合成）。</p>
+  </div>
+  <div class="coach reveal">
+    <div class="personas" role="radiogroup" aria-label="教练风格">
+      <button class="persona on" data-p="gentle" role="radio" aria-checked="true"><b>温柔</b><span>耐心鼓励型</span></button>
+      <button class="persona" data-p="funny" role="radio" aria-checked="false"><b>开玩笑</b><span>损友吐槽型</span></button>
+      <button class="persona" data-p="strict" role="radio" aria-checked="false"><b>严肃</b><span>魔鬼教练型</span></button>
+    </div>
+    <div class="cues" id="cueList"></div>
+    <div class="routes">
+      <div><b>🎧 耳机优先</b><span>连着蓝牙耳机（韶音骨传导也行）就在耳机里说，录像收音照常用手机麦克风。</span></div>
+      <div><b>📢 没耳机？扬声器</b><span>句子都在 12 个字以内，2–4 米外也听得清。</span></div>
+      <div><b>🤫 上课 / 比赛模式</b><span>跟教练上课时自动静音，只录像和出报告——教练在，就不抢教练的话。</span></div>
+    </div>
   </div>
 </section>
 
 <!-- ============ DEMO ============ -->
 <section class="section" id="demo">
   <div class="sec-head reveal">
-    <p class="kicker">01 / LIVE DEMO</p>
-    <h2>这不是视频，是<span class="hl">真算法</span>在你浏览器里跑。</h2>
+    <p class="kicker">03 / OPTIONAL · AUTO-TRACK</p>
+    <h2>可选跟拍支架：这不是视频，是<span class="hl">真算法</span>在你浏览器里跑。</h2>
     <p class="sub">和 App 里同一套逻辑：Vision 检测 30 Hz → α-β 滤波 → 延迟预测 τ=100 ms → 死区滞回 → 梯形速度规划（120°/s, 600°/s²）。右侧是按真实 BLE 协议编码的数据包。</p>
   </div>
 
@@ -178,23 +249,43 @@
 </section>
 
 <!-- ============ PIPELINE ============ -->
+<!-- ============ MOUNTING ============ -->
+<section class="section" id="mount">
+  <div class="sec-head reveal">
+    <p class="kicker">04 / MOUNTING</p>
+    <h2>别放地上。<span class="hl">挂到围网上。</span></h2>
+    <p class="sub">挂在身后的围网上：通常离底线 5.5–6.4 米、离地 1.6–2.5 米、往下俯 6–13°。这个距离 iPhone 1 倍镜头就能拍下你的全身（约占画面高度 43%），不会被球网挡、不会被球打到，骨骼也最准。挂钩夹三件打印件约 86 克，5° 一档调俯仰，安全系数 7。</p>
+  </div>
+  <div class="mounts">
+    <figure class="mount-fig reveal">
+      <img src="assets/preview_fence_clamp.png" alt="围网挂钩夹 3D 预览" loading="lazy" onerror="this.closest('figure').classList.add('noimg')">
+      <figcaption class="mono dim">fence_clamp · 参数化 CAD · 适配 Ø2.5–4.5 mm 钢丝 × 45–65 mm 网孔（9 种组合零干涉）</figcaption>
+    </figure>
+    <div class="mount-opts">
+      <article class="card reveal"><p class="mono dim">OPT_A · 默认</p><h3>围网挂钩夹</h3><p>J 形钩挂在钢丝交叉点，背后压条 + 拇指螺丝锁紧；−20°…+10° 俯仰；圆立柱（Ø30–60 mm）改用 25 mm 绑带。随底座附赠，也开放 STL。</p></article>
+      <article class="card reveal"><p class="mono dim">OPT_B · 选配</p><h3>立柱大力夹 + 球头</h3><p>夹在围网立柱或顶部横杆（Ø15–60 mm），最稳，适合有风的室外场。</p></article>
+      <article class="card reveal"><p class="mono dim">OPT_C · 选配</p><h3>2 米灯架 + 配重袋</h3><p>没有围网的场地用。不加配重约 7.6 m/s 的风就会吹倒，挂 ≥3 kg 配重袋可抗 12 m/s。</p></article>
+    </div>
+  </div>
+</section>
+
 <section class="section">
   <div class="sec-head reveal">
-    <p class="kicker">02 / HOW</p>
-    <h2>分工极简：<span class="hl">手机负责看和想，支架负责动。</span></h2>
+    <p class="kicker">05 / HOW</p>
+    <h2>整个系统：<span class="hl">手机负责看和说，云负责记和算，支架负责动。</span></h2>
   </div>
   <ol class="pipe">
-    <li class="reveal"><b>01</b><h3>看见你</h3><p>AVFoundation 4K/1080p60 录像，同一帧缩小后交给 Apple Vision，每秒 30 次检测人体。</p><code>VNDetectHumanRectanglesRequest</code></li>
-    <li class="reveal"><b>02</b><h3>认准你</h3><p>开拍前点一下自己。之后按 IoU + 距离 + 体型打分，自动忽略远端对手和路过的人。</p><code>score = .6·IoU + .3·dist + .1·h</code></li>
-    <li class="reveal"><b>03</b><h3>算准方向</h3><p>用"拍这一帧时"的支架角度换算世界方位角，α-β 滤波后按实测延迟提前预测。</p><code>θ = θ_mount(t_frame) + atan(...)</code></li>
-    <li class="reveal"><b>04</b><h3>丝滑地转</h3><p>BLE 把目标角发给 ESP32-S3，FOC 1 kHz 闭环 + 梯形规划，转得像有人在掌镜。</p><code>motor.loopFOC(); motor.move(θ)</code></li>
+    <li class="reveal"><b>01</b><h3>看清你的动作</h3><p>Apple Vision 每秒 30 次提取 17 个关节点，只跟你一个人，远端对手和路人自动忽略。</p><code>VNDetectHumanBodyPoseRequest</code></li>
+    <li class="reveal"><b>02</b><h3>认出每一拍</h3><p>手腕速度峰值确认击球，引拍方向分正反手，手过头顶判发球；同时算出引拍节奏、转肩、随挥、屈膝。</p><code>v ≥ 6 躯干/秒 · 67 ms 确认</code></li>
+    <li class="reveal"><b>03</b><h3>及时提醒你</h3><p>同一毛病五拍里出现两次才开口，按你选的性格说一句不超过 12 个字的话。</p><code>persona ∈ {温柔, 开玩笑, 严肃}</code></li>
+    <li class="reveal"><b>04</b><h3>上云、复盘</h3><p>60 秒一段直传对象存储，校验通过才删本地；云端汇总整场报告，需要时用 RTMW-x 精修。</p><code>PUT presigned → verify → delete</code></li>
   </ol>
 </section>
 
 <!-- ============ INSIDE ============ -->
 <section class="section" id="inside">
   <div class="sec-head reveal">
-    <p class="kicker">03 / TEARDOWN</p>
+    <p class="kicker">06 / TEARDOWN</p>
     <h2>84 mm 里塞进一台<span class="hl">云台 + 充电宝</span>。</h2>
     <p class="sub">下面是真实的参数化 CAD 装配体（build123d 生成，19 个实体）。拖动滑块拆开它。</p>
   </div>
@@ -225,7 +316,7 @@
 <!-- ============ SPECS ============ -->
 <section class="section" id="specs">
   <div class="sec-head reveal">
-    <p class="kicker">04 / SPEC SHEET</p>
+    <p class="kicker">07 / SPEC SHEET</p>
     <h2><span class="hl">$ cat</span> specs.txt</h2>
   </div>
   <div class="specs reveal">
@@ -255,7 +346,7 @@
 <!-- ============ OPEN SOURCE ============ -->
 <section class="section" id="open">
   <div class="sec-head reveal">
-    <p class="kicker">05 / OPEN SOURCE</p>
+    <p class="kicker">08 / OPEN SOURCE</p>
     <h2>不藏一行代码。<span class="hl">Fork 它、改它、超越它。</span></h2>
     <p class="sub">众筹支持者拿到的不只是一台设备，还有完整的固件、iOS App 和参数化 CAD——57 + 64 个单元测试全绿。</p>
   </div>
@@ -315,9 +406,18 @@ t_ms:u32  angle:i16  vel:i16  batt:u8  flags:u8  temp:i8  last_seq:u8  state:u8 
 <!-- ============ REWARDS ============ -->
 <section class="section" id="rewards">
   <div class="sec-head reveal">
-    <p class="kicker">06 / BACK IT</p>
-    <h2>选你的<span class="hl">装备等级</span>。</h2>
-    <p class="sub">众筹目标 ¥300,000。上线后 48 小时内为早鸟档，限量售完即止。以下为预热价，上线时以众筹平台为准。</p>
+    <p class="kicker">10 / BACK IT</p>
+    <h2>会员是核心，<span class="hl">硬件随你选</span>。</h2>
+    <p class="sub">不买支架也能用：手机放在任何三脚架或围网夹上，照样上云、出报告、有教练。众筹目标 ¥300,000，上线后 48 小时内为早鸟价，以下为预热价，上线时以众筹平台为准。</p>
+  </div>
+
+  <div class="plans reveal">
+    <div class="plan"><p class="mono dim">FREE</p><h3>免费</h3><p class="price"><b>¥0</b></p>
+      <ul><li>录像 + 实时击球计数</li><li>云端 30 GB</li><li>每月 3 小时云端报告</li><li>语音教练试用 3 次</li></ul></div>
+    <div class="plan"><p class="mono dim">PRO</p><h3>Pro</h3><p class="price"><b>¥30</b><span>/月 · ¥268/年</span></p>
+      <ul><li>云端 300 GB</li><li>每月 30 小时云端报告</li><li>实时语音教练 · 3 种性格</li><li>豆包真人音色</li></ul></div>
+    <div class="plan hot"><p class="mono dim">MAX</p><h3>Max</h3><p class="price"><b>¥98</b><span>/月 · ¥888/年</span></p>
+      <ul><li><b>云端 1 TB</b></li><li>云端报告不限时长</li><li>自定义教练性格</li><li>RTMW-x 精修复盘 · 戒指数据融合（即将推出）</li></ul></div>
   </div>
 
   <div class="goal reveal">
@@ -328,53 +428,54 @@ t_ms:u32  angle:i16  vel:i16  batt:u8  flags:u8  temp:i8  last_seq:u8  state:u8 
 
   <div class="tiers">
     <article class="tier reveal">
-      <p class="mono dim">LV.1 · HACKER</p>
-      <h3>极客 DIY 套件</h3>
-      <p class="price"><b>¥399</b><s>¥499</s></p>
+      <p class="mono dim">LV.1 · CLOUD ONLY</p>
+      <h3>云会员早鸟</h3>
+      <p class="price"><b>¥588</b><s>¥888</s></p>
       <ul>
-        <li>全套电子件 + 电机 + 轴承 + 电池</li>
-        <li>STL 文件自己打印外壳</li>
-        <li>焊接/装配教程 + 调参指南</li>
-        <li>Discord 极客频道</li>
+        <li>Max 年卡（1 TB + 不限报告）</li>
+        <li>三种教练性格 + 真人音色</li>
+        <li>围网挂钩夹 STL（自己打印）</li>
+        <li>不需要任何硬件</li>
       </ul>
-      <p class="limit mono">限量 300 套</p>
-      <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="DIY">预约 →</a>
+      <p class="limit mono">限量 2000 份</p>
+      <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="CLOUD">预约 →</a>
     </article>
     <article class="tier hot reveal">
       <span class="badge">MOST WANTED</span>
       <p class="mono dim">LV.2 · SUPER EARLY BIRD</p>
       <h3>超级早鸟</h3>
-      <p class="price"><b>¥599</b><s>¥899</s></p>
+      <p class="price"><b>¥1,199</b><s>¥1,787</s></p>
       <ul>
-        <li>TennisMount 整机 ×1</li>
-        <li>MagSafe 引磁片 + USB-C 短线</li>
-        <li>围网夹 + 迷你三脚架</li>
+        <li>TennisMount 跟拍底座 ×1</li>
+        <li>围网挂钩夹 + MagSafe 引磁片 + USB-C 短线</li>
+        <li><b>Max 年卡</b>（价值 ¥888）</li>
         <li>编号激光铭牌（#001–#500）</li>
       </ul>
       <p class="limit mono">限量 500 台</p>
       <a class="btn btn-solid magnetic" href="#subscribe" data-tier="SUPER_EARLY">锁定资格 →</a>
     </article>
     <article class="tier reveal">
-      <p class="mono dim">LV.3 · EARLY BIRD</p>
-      <h3>早鸟</h3>
-      <p class="price"><b>¥699</b><s>¥899</s></p>
+      <p class="mono dim">LV.3 · HACKER</p>
+      <h3>极客 DIY 套件</h3>
+      <p class="price"><b>¥599</b><s>¥767</s></p>
       <ul>
-        <li>TennisMount 整机 ×1</li>
-        <li>MagSafe 引磁片 + USB-C 短线</li>
-        <li>围网夹 + 迷你三脚架</li>
+        <li>全套电子件 + 电机 + 轴承 + 电池</li>
+        <li>外壳与挂钩夹 STL 自己打印</li>
+        <li>Pro 半年卡</li>
+        <li>焊接 / 装配 / 调参教程</li>
       </ul>
-      <p class="limit mono">限量 1500 台</p>
-      <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="EARLY">预约 →</a>
+      <p class="limit mono">限量 300 套</p>
+      <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="DIY">预约 →</a>
     </article>
     <article class="tier reveal">
       <p class="mono dim">LV.4 · DOUBLES</p>
       <h3>双打套装</h3>
-      <p class="price"><b>¥1,199</b><s>¥1,798</s></p>
+      <p class="price"><b>¥1,899</b><s>¥2,686</s></p>
       <ul>
-        <li>TennisMount 整机 ×2</li>
-        <li>两个机位同时拍（正面 + 侧面）</li>
-        <li>全部配件 ×2</li>
-        <li>App 多机位功能优先体验</li>
+        <li>跟拍底座 ×2 + 挂钩夹 ×2</li>
+        <li>两个机位同时拍（身后 + 侧面）</li>
+        <li>Max 年卡 ×1</li>
+        <li>多机位报告优先体验</li>
       </ul>
       <p class="limit mono">限量 300 套</p>
       <a class="btn btn-ghost magnetic" href="#subscribe" data-tier="DOUBLES">预约 →</a>
@@ -385,25 +486,29 @@ t_ms:u32  angle:i16  vel:i16  batt:u8  flags:u8  temp:i8  last_seq:u8  state:u8 
 <!-- ============ ROADMAP ============ -->
 <section class="section">
   <div class="sec-head reveal">
-    <p class="kicker">07 / ROADMAP</p>
+    <p class="kicker">11 / ROADMAP</p>
     <h2><span class="hl">git log</span> --future</h2>
   </div>
   <ol class="road">
-    <li class="done reveal"><time>2026 Q4</time><h3>设计冻结 · v1</h3><p>结构 CAD、电路、固件、iOS App 全部完成，单元测试 121/121 通过。</p><span class="mono">✓ DONE</span></li>
-    <li class="now reveal"><time>2026 Q4</time><h3>原型实测</h3><p>桌面调参 → 球场实测 → 外壳 v2。众筹上线。</p><span class="mono">● IN PROGRESS</span></li>
-    <li class="reveal"><time>2027 Q1</time><h3>EVT 工程样机</h3><p>一体化圆形 PCB，注塑外壳开模，100 台支持者内测。</p></li>
-    <li class="reveal"><time>2027 Q2</time><h3>DVT + 认证</h3><p>3C / 电池 UN38.3 / 蓝牙 SRRC，可靠性测试（高温、跌落、10 万次往复）。</p></li>
-    <li class="reveal"><time>2027 Q3</time><h3>量产发货</h3><p>DIY 套件优先发出，整机按档位顺序发货。</p></li>
+    <li class="done reveal"><time>2026 Q4</time><h3>v1 设计冻结</h3><p>跟拍支架的结构、电路、固件、App 全部完成。</p><span class="mono">✓ DONE</span></li>
+    <li class="now reveal"><time>2026 Q4</time><h3>v2 · AI 教练</h3><p>边录边传、云端报告、实时语音教练、围网挂钩夹。众筹上线。</p><span class="mono">● IN PROGRESS</span></li>
+    <li class="reveal"><time>2027 Q1</time><h3>内测 50 小时真人数据</h3><p>标定击球与教练阈值；豆包真人音色、精彩片段自动剪辑。</p></li>
+    <li class="reveal"><time>2027 Q2</time><h3>精修复盘 + 教练端</h3><p>RTMW-x 高精度复盘；教练可查看学员报告、标注重点。支架 DVT 与认证。</p></li>
+    <li class="reveal"><time>2027 Q3</time><h3>量产发货 + 戒指</h3><p>支架按档位发货；Ambodi 戒指"网球模式"测挥拍速度。</p></li>
   </ol>
 </section>
 
 <!-- ============ FAQ ============ -->
 <section class="section" id="faq">
   <div class="sec-head reveal">
-    <p class="kicker">08 / FAQ</p>
+    <p class="kicker">12 / FAQ</p>
     <h2>你可能想问的。</h2>
   </div>
   <div class="faq reveal">
+    <details><summary>不买支架能用吗？</summary><p>能。App 才是核心：手机放在任何三脚架、围网夹上，照样边拍边上云、出报告、有语音教练。支架只是让你跑动时始终在画面中间，适合想要更好画面的人。</p></details>
+    <details><summary>视频存在哪里？别人能看到吗？</summary><p>存在国内的火山引擎对象存储（上海），私有存储桶，只能用你账号签发的短时链接访问；可以一键删除整场。分享报告默认只分享骨骼动画，不分享原片。</p></details>
+    <details><summary>打球戴耳机不方便怎么办？</summary><p>没耳机就用手机扬声器——每句话都在 12 个字以内，2–4 米外听得清。跟教练上课时切到"上课模式"，手机不说话，只录像和出报告。自己练的时候，骨传导耳机（比如韶音）体验最好。</p></details>
+    <details><summary>球场信号不好，上传跟不上怎么办？</summary><p>手机最多缓存 2 GB 还没传完的片段，超出时自动降码率；回到 Wi-Fi 后自动补传。只有云端确认收到的片段才会从手机删除，不会丢。</p></details>
     <details><summary>支持安卓吗？</summary><p>首发只支持 iPhone（iOS 17+）：Apple Vision 的人体检测效果和发热控制都更稳。支架端协议完全公开，安卓 App 在路线图里，也欢迎社区先做。</p></details>
     <details><summary>手机和支架之间为什么用蓝牙，不用那根 USB 线通信？</summary><p>iOS 不允许 App 直接和非 MFi 认证的 USB 设备通信；唯一可行的"伪装成 MIDI 设备"方案又会让手机反过来给支架供电。所以线只负责给手机充电，指令走 BLE——每秒 30 个 8 字节的包，延迟 15–30 ms，完全够用。</p></details>
     <details><summary>对面球员、捡球的人会不会把镜头"抢走"？</summary><p>不会。开拍前点一下自己锁定，之后每帧按位置重叠、距离和体型打分，画面高度不到 12% 的人（远端对手、路人）直接忽略；跟丢 1 秒后在原方向附近慢速搜索，3 秒后回中等你。</p></details>
@@ -417,17 +522,17 @@ t_ms:u32  angle:i16  vel:i16  batt:u8  flags:u8  temp:i8  last_seq:u8  state:u8 
 <!-- ============ SUBSCRIBE ============ -->
 <section class="section subscribe" id="subscribe">
   <div class="sub-box reveal">
-    <p class="kicker">09 / JOIN</p>
+    <p class="kicker">13 / JOIN</p>
     <h2>上线那一刻，<span class="hl">第一个通知你。</span></h2>
     <p class="sub">留下邮箱，锁定早鸟资格。我们只发上线提醒和关键进展，不发广告。</p>
     <form id="subForm" novalidate>
       <span class="prompt mono">&gt;</span>
       <input type="email" id="subEmail" placeholder="you@court.dev" autocomplete="email" required aria-label="邮箱">
       <select id="subTier" aria-label="意向档位">
-        <option value="SUPER_EARLY">超级早鸟 ¥599</option>
-        <option value="DIY">极客 DIY ¥399</option>
-        <option value="EARLY">早鸟 ¥699</option>
-        <option value="DOUBLES">双打套装 ¥1,199</option>
+        <option value="SUPER_EARLY">超级早鸟 ¥1,199</option>
+        <option value="CLOUD">云会员早鸟 ¥588</option>
+        <option value="DIY">极客 DIY ¥599</option>
+        <option value="DOUBLES">双打套装 ¥1,899</option>
       </select>
       <button class="btn btn-solid" type="submit">ENTER ↵</button>
     </form>
